@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMIN DASHBOARD // IMACHUI_NULLSECTOR</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --neon: #00ffd5; --red: #ff2b4e; --bg: #02060a; --panel: rgba(5,15,20,.9); --yellow: #ffea00; }
+  body { background: var(--bg); color: #c8fff5; font-family: 'Share Tech Mono', monospace; padding: 20px; min-height: 100vh; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { font-family: 'Orbitron', sans-serif; color: var(--neon); text-align: center; margin-bottom: 30px; letter-spacing: 5px; text-shadow: 0 0 15px var(--neon); }
+  .section { background: var(--panel); border: 1px solid var(--neon); border-radius: 8px; padding: 20px; margin-bottom: 30px; box-shadow: 0 0 20px rgba(0,255,213,.2); }
+  .section h2 { color: var(--neon); font-size: 1.2rem; margin-bottom: 15px; border-bottom: 1px solid rgba(0,255,213,.3); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .clear-all-btn { background: transparent; border: 1px solid var(--red); color: var(--red); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 0.3s; }
+  .clear-all-btn:hover { background: var(--red); color: #000; box-shadow: 0 0 15px var(--red); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th, td { text-align: left; padding: 10px; border-bottom: 1px solid rgba(0,255,213,.1); }
+  th { color: var(--neon); font-weight: bold; }
+  tr:hover { background: rgba(0,255,213,.05); }
+  .btn { display: inline-block; padding: 12px 20px; background: transparent; border: 2px solid var(--red); color: var(--red); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: all .25s; border-radius: 6px; font-size: 0.8rem; text-align: center; }
+  .btn:hover { background: var(--red); color: #000; box-shadow: 0 0 30px var(--red); }
+  .btn-back { border-color: var(--neon); color: var(--neon); }
+  .btn-back:hover { background: var(--neon); color: #001410; box-shadow: 0 0 30px var(--neon); }
+  .btn-logout { border-color: var(--yellow); color: var(--yellow); }
+  .btn-logout:hover { background: var(--yellow); color: #000; box-shadow: 0 0 30px var(--yellow); }
+  .btn-phcorner { border-color: #ff2b4e; color: #ff2b4e; }
+  .btn-phcorner:hover { background: #ff2b4e; color: #000; box-shadow: 0 0 30px #ff2b4e; }
+  .btn-del { background: transparent; border: 1px solid var(--red); color: var(--red); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-family: 'Share Tech Mono', monospace; transition: all 0.2s; }
+  .btn-del:hover { background: var(--red); color: #fff; box-shadow: 0 0 10px var(--red); }
+  .controls { text-align: center; margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+  #passwordPrompt { position: fixed; inset: 0; background: #000; z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+  #passwordPrompt input { padding: 15px; font-size: 1.2rem; background: #000; border: 2px solid var(--red); color: #fff; text-align: center; letter-spacing: 3px; margin-bottom: 20px; width: 300px; border-radius: 6px; }
+  #passwordPrompt input:focus { outline: none; box-shadow: 0 0 20px var(--red); }
+  .error { color: var(--red); margin-top: 10px; }
+  .loading { text-align: center; color: #666; }
+</style>
+</head>
+<body>
+
+<div id="passwordPrompt">
+  <h1 style="color: var(--red); text-shadow: 0 0 15px var(--red);">RESTRICTED AREA</h1>
+  <p style="margin-bottom: 20px; color: #888;">Enter Darkweb Password:</p>
+  <input type="password" id="adminPass" placeholder="••••••••" autocomplete="off">
+  <button class="btn" id="unlockBtn" style="border-color: var(--neon); color: var(--neon);">UNLOCK</button>
+  <div class="error" id="errorMsg"></div>
+</div>
+
+<div class="container" id="dashboardContent" style="display:none;">
+  <h1>ADMIN DASHBOARD</h1>
+  
+  <div class="section">
+    <h2>📋 Registered Users <button class="clear-all-btn" onclick="clearAllUsers()">CLEAR ALL</button></h2>
+    <table id="usersTable">
+      <thead><tr><th>Email</th><th>Date Registered</th><th>Action</th></tr></thead>
+      <tbody><tr><td colspan="3" class="loading">Loading users...</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>🕵️ Login Attempts <button class="clear-all-btn" onclick="clearAllAttempts()">CLEAR ALL</button></h2>
+    <table id="attemptsTable">
+      <thead><tr><th>Email</th><th>Type</th><th>Timestamp</th><th>Device</th><th>Action</th></tr></thead>
+      <tbody><tr><td colspan="5" class="loading">Loading attempts...</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="controls">
+    <a href="https://phcorner.org/login/" target="_blank" class="btn btn-phcorner">GO TO PHCORNER</a>
+    <a href="index.html" class="btn btn-back">← BACK TO SITE</a>
+    <button class="btn btn-logout" id="logoutBtn">LOG OUT</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://mcpcjjvcykmmxlazcsbz.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_coh6tjtEXrvWwXnZKBsubA_K-OrJX9F';
+  
+  // Gumamit din ng sessionStorage para mag-share ng session sa index.html
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: {
+      storage: window.sessionStorage,
+      storageKey: 'imachui-auth-session',
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: false
+    }
+  });
+  
+  const ADMIN_PASSWORD = 'Imachuinerts';
+
+  document.getElementById('unlockBtn').addEventListener('click', async () => {
+    const pass = document.getElementById('adminPass').value;
+    if (pass === ADMIN_PASSWORD) {
+      document.getElementById('passwordPrompt').style.display = 'none';
+      document.getElementById('dashboardContent').style.display = 'block';
+      await loadDashboardData();
+    } else {
+      document.getElementById('errorMsg').textContent = '❌ Incorrect password.';
+    }
+  });
+
+  document.getElementById('adminPass').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('unlockBtn').click();
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await supabaseClient.auth.signOut();
+    window.location.href = 'index.html';
+  });
+
+  // DELETE SINGLE USER
+  window.deleteUser = async function(id) {
+    if (!confirm('Are you sure you want to delete this user?')) return;
+    const { error } = await supabaseClient.from('profiles').delete().eq('id', id);
+    if (error) { alert('❌ Error deleting user: ' + error.message); }
+    else { await loadDashboardData(); }
+  };
+
+  // DELETE SINGLE LOGIN ATTEMPT
+  window.deleteAttempt = async function(id) {
+    if (!confirm('Delete this login attempt?')) return;
+    const { error } = await supabaseClient.from('login_attempts').delete().eq('id', id);
+    if (error) { alert('❌ Error deleting attempt: ' + error.message); }
+    else { await loadDashboardData(); }
+  };
+
+  // CLEAR ALL USERS
+  window.clearAllUsers = async function() {
+    if (!confirm('⚠️ WARNING: This will delete ALL registered users. Continue?')) return;
+    const { error } = await supabaseClient.from('profiles').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+    if (error) { alert('❌ Error clearing users: ' + error.message); }
+    else { await loadDashboardData(); }
+  };
+
+  // CLEAR ALL LOGIN ATTEMPTS
+  window.clearAllAttempts = async function() {
+    if (!confirm('⚠️ WARNING: This will delete ALL login attempts. Continue?')) return;
+    const { error } = await supabaseClient.from('login_attempts').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+    if (error) { alert('❌ Error clearing attempts: ' + error.message); }
+    else { await loadDashboardData(); }
+  };
+
+  async function loadDashboardData() {
+    const { data: users, error: userError } = await supabaseClient.from('profiles').select('*').order('created_at', { ascending: false });
+    const usersBody = document.querySelector('#usersTable tbody');
+    if (!userError && users && users.length > 0) {
+      usersBody.innerHTML = users.map(u => `
+        <tr>
+          <td>${u.email}</td>
+          <td>${new Date(u.created_at).toLocaleString()}</td>
+          <td><button class="btn-del" onclick="deleteUser('${u.id}')">DEL</button></td>
+        </tr>
+      `).join('');
+    } else { usersBody.innerHTML = '<tr><td colspan="3" class="loading">No users found.</td></tr>'; }
+
+    const { data: attempts, error: attemptError } = await supabaseClient.from('login_attempts').select('*').order('timestamp', { ascending: false });
+    const attemptsBody = document.querySelector('#attemptsTable tbody');
+    if (!attemptError && attempts && attempts.length > 0) {
+      attemptsBody.innerHTML = attempts.map(a => `
+        <tr>
+          <td>${a.email}</td>
+          <td style="color:${a.attempt_type.includes('failed') ? '#ff2b4e' : '#00ffd5'}">${a.attempt_type}</td>
+          <td>${new Date(a.timestamp).toLocaleString()}</td>
+          <td style="font-size:0.7rem; color:#888;">${(a.device || 'Unknown').substring(0, 50)}...</td>
+          <td><button class="btn-del" onclick="deleteAttempt('${a.id}')">DEL</button></td>
+        </tr>
+      `).join('');
+    } else { attemptsBody.innerHTML = '<tr><td colspan="5" class="loading">No login attempts found.</td></tr>'; }
+  }
+</script>
+</body>
+</html>

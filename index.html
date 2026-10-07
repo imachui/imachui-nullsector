@@ -83,141 +83,28 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;ov
   70% { text-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .6em #ffae34, .2em -.3em .4em #ec760c, -.2em -.4em .7em #cd4606, .1em -.5em .7em #973716, .1em -.7em .9em #451b0e; }
   to { text-shadow: -.1em -.2em .6em #fefcc9, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716, -.2em -1em .8em #451b0e; }
 }
-
-/* GLITCH ANIMATION para sa DARKWEB button */
 @keyframes darkwebGlitch {
-  0%, 100% {
-    text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e;
-    transform: translate(0, 0);
-    opacity: 1;
-    filter: hue-rotate(0deg);
-  }
-  5% {
-    text-shadow: 2px 0 #00e5ff, -2px 0 #ff2b4e, 0 0 20px #ff2b4e;
-    transform: translate(-2px, 1px);
-    opacity: 0.4;
-    filter: hue-rotate(45deg);
-  }
-  10% {
-    text-shadow: -2px 0 #ffea00, 2px 0 #ff2b4e;
-    transform: translate(2px, -1px);
-    opacity: 1;
-    filter: hue-rotate(0deg);
-  }
-  15% {
-    text-shadow: 0 0 15px #ff2b4e, 0 0 40px #ff2b4e;
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-  20% {
-    text-shadow: 3px 0 #00e5ff, -3px 0 #ff2b4e, 0 0 20px #ff2b4e;
-    transform: translate(-1px, 2px);
-    opacity: 1;
-    filter: hue-rotate(-60deg);
-  }
-  25% {
-    text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e;
-    transform: translate(0, 0);
-    opacity: 1;
-    filter: hue-rotate(0deg);
-  }
-  30% {
-    text-shadow: -2px 0 #a060ff, 2px 0 #ff2b4e;
-    transform: translate(1px, -1px);
-    opacity: 0.3;
-  }
-  35% {
-    text-shadow: 0 0 15px #ff2b4e;
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-  50% {
-    text-shadow: 2px 0 #ff0080, -2px 0 #00e5ff, 0 0 20px #ff2b4e;
-    transform: translate(-2px, 0);
-    opacity: 0.6;
-    filter: hue-rotate(90deg);
-  }
-  55% {
-    text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e;
-    transform: translate(0, 0);
-    opacity: 1;
-    filter: hue-rotate(0deg);
-  }
-  70% {
-    text-shadow: -3px 0 #ffea00, 3px 0 #ff2b4e;
-    transform: translate(2px, 2px);
-    opacity: 0.5;
-  }
-  75% {
-    text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e;
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-  90% {
-    text-shadow: 2px 0 #a060ff, -2px 0 #00ff88, 0 0 25px #ff2b4e;
-    transform: translate(-1px, -2px);
-    opacity: 0.7;
-    filter: hue-rotate(180deg);
-  }
-  95% {
-    text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e;
-    transform: translate(0, 0);
-    opacity: 1;
-    filter: hue-rotate(0deg);
-  }
+  0%, 100% { text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e; transform: translate(0, 0); opacity: 1; filter: hue-rotate(0deg); }
+  5% { text-shadow: 2px 0 #00e5ff, -2px 0 #ff2b4e, 0 0 20px #ff2b4e; transform: translate(-2px, 1px); opacity: 0.4; filter: hue-rotate(45deg); }
+  10% { text-shadow: -2px 0 #ffea00, 2px 0 #ff2b4e; transform: translate(2px, -1px); opacity: 1; filter: hue-rotate(0deg); }
+  15% { text-shadow: 0 0 15px #ff2b4e, 0 0 40px #ff2b4e; transform: translate(0, 0); opacity: 0; }
+  20% { text-shadow: 3px 0 #00e5ff, -3px 0 #ff2b4e, 0 0 20px #ff2b4e; transform: translate(-1px, 2px); opacity: 1; filter: hue-rotate(-60deg); }
+  25% { text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e; transform: translate(0, 0); opacity: 1; filter: hue-rotate(0deg); }
+  30% { text-shadow: -2px 0 #a060ff, 2px 0 #ff2b4e; transform: translate(1px, -1px); opacity: 0.3; }
+  35% { text-shadow: 0 0 15px #ff2b4e; transform: translate(0, 0); opacity: 1; }
+  50% { text-shadow: 2px 0 #ff0080, -2px 0 #00e5ff, 0 0 20px #ff2b4e; transform: translate(-2px, 0); opacity: 0.6; filter: hue-rotate(90deg); }
+  55% { text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e; transform: translate(0, 0); opacity: 1; filter: hue-rotate(0deg); }
+  70% { text-shadow: -3px 0 #ffea00, 3px 0 #ff2b4e; transform: translate(2px, 2px); opacity: 0.5; }
+  75% { text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e; transform: translate(0, 0); opacity: 1; }
+  90% { text-shadow: 2px 0 #a060ff, -2px 0 #00ff88, 0 0 25px #ff2b4e; transform: translate(-1px, -2px); opacity: 0.7; filter: hue-rotate(180deg); }
+  95% { text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e; transform: translate(0, 0); opacity: 1; filter: hue-rotate(0deg); }
 }
-
-.darkweb-btn, .logout-btn {
-  position: fixed; top: 75px; z-index: 999;
-  background: transparent; border: 2px solid;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 900;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: all 0.3s;
-  will-change: transform, opacity, text-shadow;
-}
-
-/* DARKWEB - Laging naka-glitch + may fire */
-.darkweb-btn {
-  left: 20px;
-  border-color: #ff2b4e;
-  color: #ff2b4e;
-  animation: burn 1.5s linear infinite alternate, darkwebGlitch 3s infinite steps(1);
-}
-.darkweb-btn:hover {
-  background: #ff2b4e;
-  color: #000;
-  box-shadow: 0 0 50px #ff2b4e, 0 0 100px #ff2b4e;
-  animation: none;
-}
-
-/* LOGOUT - Fire lang */
-.logout-btn {
-  right: 20px;
-  border-color: #ffea00;
-  color: #ffea00;
-  animation: burn 1.5s linear infinite alternate;
-}
-.logout-btn:hover {
-  background: #ffea00;
-  color: #000;
-  box-shadow: 0 0 50px #ffea00, 0 0 100px #ffea00;
-  animation: none;
-}
-
-/* KAPAG NAKABUKAS ANG CHAT PANEL - ITAGO ANG MGA BUTTONS */
-body.chat-open .darkweb-btn,
-body.chat-open .logout-btn {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-20px);
-  transition: opacity 0.3s, transform 0.3s;
-}
+.darkweb-btn, .logout-btn { position: fixed; top: 75px; z-index: 999; background: transparent; border: 2px solid; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.8rem; letter-spacing: 2px; padding: 8px 16px; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: all 0.3s; will-change: transform, opacity, text-shadow; }
+.darkweb-btn { left: 20px; border-color: #ff2b4e; color: #ff2b4e; animation: burn 1.5s linear infinite alternate, darkwebGlitch 3s infinite steps(1); }
+.darkweb-btn:hover { background: #ff2b4e; color: #000; box-shadow: 0 0 50px #ff2b4e, 0 0 100px #ff2b4e; animation: none; }
+.logout-btn { right: 20px; border-color: #ffea00; color: #ffea00; animation: burn 1.5s linear infinite alternate; }
+.logout-btn:hover { background: #ffea00; color: #000; box-shadow: 0 0 50px #ffea00, 0 0 100px #ffea00; animation: none; }
+body.chat-open .darkweb-btn, body.chat-open .logout-btn { opacity: 0; pointer-events: none; transform: translateY(-20px); transition: opacity 0.3s, transform 0.3s; }
 
 /* ============= MAIN SITE CSS ============= */
 #loader{position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;transition:opacity .6s,visibility .6s}
@@ -851,14 +738,13 @@ document.addEventListener('visibilitychange', () => {
 });
 
 /* ==========================================================
-   DARKWEB BUTTON
+   DARKWEB BUTTON - DIRETSO SA ADMIN.HTML (WALANG PROMPT)
    ========================================================== */
-darkwebBtn.addEventListener('click', async () => {
-  const password = prompt('🔒 Enter Darkweb Access Code:');
-  if (password === 'Imachuinerts') { 
-    darkwebBtn.style.animation = 'none'; darkwebBtn.style.transform = 'scale(1.1)'; darkwebBtn.style.boxShadow = '0 0 80px #ff2b4e, 0 0 150px #ff2b4e';
-    setTimeout(() => { window.location.href = 'admin.html'; }, 500);
-  } else if (password !== null) { alert('❌ Access Denied. Incorrect code.'); }
+darkwebBtn.addEventListener('click', () => {
+  darkwebBtn.style.animation = 'none';
+  darkwebBtn.style.transform = 'scale(1.1)';
+  darkwebBtn.style.boxShadow = '0 0 80px #ff2b4e, 0 0 150px #ff2b4e';
+  setTimeout(() => { window.location.href = 'admin.html'; }, 400);
 });
 
 /* ==========================================================
@@ -925,17 +811,14 @@ async function sendMessage(text){
   chatInput.value='';
 }
 
-/* ==========================================================
-   CHAT FAB - AUTO HIDE DARKWEB/LOGOUT KAPAG BUKAS ANG CHAT
-   ========================================================== */
 chatFab.addEventListener('click',()=>{
   chatPanel.classList.toggle('open');
   if(chatPanel.classList.contains('open')){
     renderChat();
     chatInput.focus();
-    document.body.classList.add('chat-open'); /* Itago ang buttons */
+    document.body.classList.add('chat-open');
   } else {
-    document.body.classList.remove('chat-open'); /* Ipakita ulit */
+    document.body.classList.remove('chat-open');
   }
 });
 

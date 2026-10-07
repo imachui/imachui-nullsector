@@ -13,29 +13,9 @@ html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;overflow-x:hidden;min-height:100vh;position:relative;overscroll-behavior:none}
 
 /* ============= LOGIN OVERLAY ============= */
-#loginOverlay {
-  position: fixed; inset: 0;
-  background-color: #02060a;
-  background-image: url('images/login-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow: hidden;
-  animation: bgPulse 2.5s ease-in-out infinite alternate;
-  will-change: filter;
-}
+#loginOverlay { position: fixed; inset: 0; background-color: #02060a; background-image: url('images/login-bg.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; animation: bgPulse 2.5s ease-in-out infinite alternate; will-change: filter; }
 @media (min-width: 900px) { #loginOverlay { justify-content: flex-end; padding-right: 6%; } }
-@keyframes bgPulse {
-  0% { filter: brightness(1.4) contrast(1.15) drop-shadow(0 0 25px rgba(0,255,213,.7)); }
-  50% { filter: brightness(2.2) contrast(1.35) drop-shadow(0 0 70px rgba(0,255,213,1)); }
-  100% { filter: brightness(1.4) contrast(1.15) drop-shadow(0 0 25px rgba(0,255,213,.7)); }
-}
-
+@keyframes bgPulse { 0% { filter: brightness(1.4) contrast(1.15) drop-shadow(0 0 25px rgba(0,255,213,.7)); } 50% { filter: brightness(2.2) contrast(1.35) drop-shadow(0 0 70px rgba(0,255,213,1)); } 100% { filter: brightness(1.4) contrast(1.15) drop-shadow(0 0 25px rgba(0,255,213,.7)); } }
 #loginMatrixCanvas { position: absolute; inset: 0; z-index: 10001; pointer-events: none; opacity: 0.25; mix-blend-mode: screen; }
 #loginOverlay .smoke { position: absolute; inset: -20%; background: radial-gradient(circle at 30% 50%, rgba(0,255,213,.18) 0%, transparent 40%), radial-gradient(circle at 70% 30%, rgba(255,255,255,.08) 0%, transparent 40%), radial-gradient(circle at 50% 80%, rgba(0,255,213,.12) 0%, transparent 40%); mix-blend-mode: screen; animation: smokeMove 15s linear infinite; z-index: 10002; pointer-events: none; filter: blur(25px); }
 @keyframes smokeMove { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(8%,6%) scale(1.15); } 100% { transform: translate(0,0) scale(1); } }
@@ -53,15 +33,7 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;ov
 #loginOverlay input { width: 100%; padding: 12px 15px 12px 38px; background: rgba(0,0,0,.6); border: 1px solid rgba(0,255,213,.3); border-radius: 6px; color: #fff; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; outline: none; transition: all 0.3s; will-change: transform, box-shadow; }
 #loginOverlay .input-group .icon { position: absolute; left: 10px; top: 28px; color: var(--neon); font-size: 0.9rem; pointer-events: none; }
 #loginOverlay input:focus { border-color: var(--neon); box-shadow: 0 0 20px rgba(0,255,213,.5), inset 0 0 10px rgba(0,255,213,.15); animation: inputShake 0.5s infinite; }
-@keyframes inputShake {
-  0%   { transform: translate(0, 0) rotate(0deg); box-shadow: 0 0 20px rgba(0,255,213,.5); }
-  15%  { transform: translate(-2px, 1px) rotate(-0.5deg); box-shadow: 0 0 25px rgba(255,0,80,.7); }
-  30%  { transform: translate(2px, -1px) rotate(0.5deg); box-shadow: 0 0 25px rgba(0,255,213,.9); }
-  45%  { transform: translate(-1px, 2px) rotate(-0.3deg); box-shadow: 0 0 20px rgba(255,234,0,.7); }
-  60%  { transform: translate(1px, -2px) rotate(0.3deg); box-shadow: 0 0 25px rgba(0,255,213,1); }
-  75%  { transform: translate(-2px, 1px) rotate(-0.5deg); box-shadow: 0 0 20px rgba(255,0,80,.6); }
-  100% { transform: translate(0, 0) rotate(0deg); box-shadow: 0 0 20px rgba(0,255,213,.5); }
-}
+@keyframes inputShake { 0% { transform: translate(0, 0) rotate(0deg); box-shadow: 0 0 20px rgba(0,255,213,.5); } 15% { transform: translate(-2px, 1px) rotate(-0.5deg); box-shadow: 0 0 25px rgba(255,0,80,.7); } 30% { transform: translate(2px, -1px) rotate(0.5deg); box-shadow: 0 0 25px rgba(0,255,213,.9); } 45% { transform: translate(-1px, 2px) rotate(-0.3deg); box-shadow: 0 0 20px rgba(255,234,0,.7); } 60% { transform: translate(1px, -2px) rotate(0.3deg); box-shadow: 0 0 25px rgba(0,255,213,1); } 75% { transform: translate(-2px, 1px) rotate(-0.5deg); box-shadow: 0 0 20px rgba(255,0,80,.6); } 100% { transform: translate(0, 0) rotate(0deg); box-shadow: 0 0 20px rgba(0,255,213,.5); } }
 #loginOverlay input.fire-active { animation: fireBorder 1.5s infinite alternate; }
 @keyframes fireBorder { 0% { border-color: #ff2b4e; box-shadow: 0 0 12px #ff2b4e, inset 0 0 12px #ff2b4e; } 50% { border-color: #ffea00; box-shadow: 0 0 25px #ffea00, inset 0 0 25px #ffea00; } 100% { border-color: #ff2b4e; box-shadow: 0 0 12px #ff2b4e, inset 0 0 12px #ff2b4e; } }
 #loginOverlay .btn-login { width: 100%; padding: 12px; background: transparent; border: 2px solid var(--neon); border-radius: 6px; color: var(--neon); font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 3px; cursor: pointer; transition: all 0.3s; margin-top: 5px; position: relative; overflow: hidden; animation: btnPulse 2s infinite alternate; }
@@ -75,7 +47,7 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;ov
 #loginOverlay .footer-text { font-family: 'Share Tech Mono', monospace; font-size: 0.45rem; color: var(--muted); margin-top: 15px; letter-spacing: 1px; }
 
 /* ==========================================================
-   DARKWEB & LOGOUT BUTTONS (FIRE + GLITCH ANIMATION)
+   FIRE + GLITCH ANIMATIONS
    ========================================================== */
 @keyframes burn {
   from { text-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .4em #ffae34, .2em -.3em .3em #ec760c, -.2em -.4em .4em #cd4606, .1em -.5em .7em #973716, .1em -.7em .7em #451b0e; }
@@ -99,12 +71,60 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;ov
   90% { text-shadow: 2px 0 #a060ff, -2px 0 #00ff88, 0 0 25px #ff2b4e; transform: translate(-1px, -2px); opacity: 0.7; filter: hue-rotate(180deg); }
   95% { text-shadow: 0 0 10px #ff2b4e, 0 0 20px #ff2b4e; transform: translate(0, 0); opacity: 1; filter: hue-rotate(0deg); }
 }
+
+/* DARKWEB & LOGOUT BUTTONS */
 .darkweb-btn, .logout-btn { position: fixed; top: 75px; z-index: 999; background: transparent; border: 2px solid; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.8rem; letter-spacing: 2px; padding: 8px 16px; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: all 0.3s; will-change: transform, opacity, text-shadow; }
 .darkweb-btn { left: 20px; border-color: #ff2b4e; color: #ff2b4e; animation: burn 1.5s linear infinite alternate, darkwebGlitch 3s infinite steps(1); }
 .darkweb-btn:hover { background: #ff2b4e; color: #000; box-shadow: 0 0 50px #ff2b4e, 0 0 100px #ff2b4e; animation: none; }
 .logout-btn { right: 20px; border-color: #ffea00; color: #ffea00; animation: burn 1.5s linear infinite alternate; }
 .logout-btn:hover { background: #ffea00; color: #000; box-shadow: 0 0 50px #ffea00, 0 0 100px #ffea00; animation: none; }
-body.chat-open .darkweb-btn, body.chat-open .logout-btn { opacity: 0; pointer-events: none; transform: translateY(-20px); transition: opacity 0.3s, transform 0.3s; }
+
+/* ==========================================================
+   DOWNLOAD NEXUS BUTTON
+   ========================================================== */
+.download-btn {
+  position: fixed;
+  top: 130px;
+  left: 20px;
+  z-index: 999;
+  background: transparent;
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+  animation: downloadPulse 2s ease-in-out infinite alternate;
+  will-change: box-shadow, transform;
+}
+@keyframes downloadPulse {
+  0% { box-shadow: 0 0 15px rgba(0,255,136,.4), inset 0 0 10px rgba(0,255,136,.1); }
+  100% { box-shadow: 0 0 35px rgba(0,255,136,.8), inset 0 0 15px rgba(0,255,136,.3); }
+}
+.download-btn:hover {
+  background: #00ff88;
+  color: #000;
+  box-shadow: 0 0 50px #00ff88, 0 0 100px rgba(0,255,136,.6);
+  animation: none;
+  transform: scale(1.05);
+}
+
+/* AUTO-HIDE KAPAG BUKAS ANG CHAT */
+body.chat-open .darkweb-btn,
+body.chat-open .logout-btn,
+body.chat-open .download-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+  transition: opacity 0.3s, transform 0.3s;
+}
 
 /* ============= MAIN SITE CSS ============= */
 #loader{position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;transition:opacity .6s,visibility .6s}
@@ -293,7 +313,7 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 @media (max-width: 600px) {
   .brand-logo { display: block !important; visibility: visible !important; opacity: 1 !important; letter-spacing: 1.5px !important; font-size: 1.8rem !important; margin-bottom: 10px !important; word-break: break-word !important; }
   .brand-hero { letter-spacing: 2px !important; min-height: 100px; }
-  .stage { padding-top: 130px !important; padding-left: 15px !important; padding-right: 15px !important; gap: 25px; }
+  .stage { padding-top: 180px !important; padding-left: 15px !important; padding-right: 15px !important; gap: 25px; }
   .field input, .field select, .field textarea { font-size: 16px !important; padding: 12px 10px !important; }
   .field-label { font-size: 0.55rem !important; left: 36px !important; }
   .field-icon { width: 40px !important; height: 40px !important; }
@@ -303,7 +323,8 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
   .bottom-bar { padding: 10px 15px !important; }
   .bottom-bar .brand-line { font-size: 0.7rem !important; letter-spacing: 4px !important; }
   .bottom-bar .sep-line { font-size: 0.55rem !important; letter-spacing: 2px !important; }
-  .darkweb-btn, .logout-btn { font-size: 0.65rem !important; padding: 7px 12px !important; top: 90px !important; }
+  .darkweb-btn, .logout-btn { font-size: 0.6rem !important; padding: 6px 10px !important; top: 90px !important; }
+  .download-btn { font-size: 0.6rem !important; padding: 6px 10px !important; top: 130px !important; }
   #loginOverlay .login-box { max-width: 320px; padding: 22px 18px; }
 }
 </style>
@@ -341,6 +362,11 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 <button class="darkweb-btn" id="darkwebBtn" style="display:none;">
   DARKWEB
 </button>
+
+<!-- DOWNLOAD NEXUS BUTTON -->
+<a class="download-btn" id="downloadBtn" href="https://github.com/imachui/imachui-nullsector/releases/download/v1.0/IMACHUI.Nexus.remote.Access.msi" download style="display:none;">
+  ⬇ DOWNLOAD NEXUS
+</a>
 
 <!-- LOG OUT BUTTON -->
 <button id="logoutBtn" class="logout-btn" style="display:none;">LOG OUT</button>
@@ -550,9 +576,6 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-/* ==========================================================
-   SUPABASE CONFIGURATION
-   ========================================================== */
 const SUPABASE_URL = 'https://mcpcjjvcykmmxlazcsbz.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_coh6tjtEXrvWwXnZKBsubA_K-OrJX9F';
 
@@ -566,19 +589,10 @@ let realtimeChannel = null;
 
 try {
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    auth: {
-      storage: window.sessionStorage,
-      storageKey: 'imachui-auth-session',
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: false
-    }
+    auth: { storage: window.sessionStorage, storageKey: 'imachui-auth-session', persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
   });
 } catch (e) { console.error("Supabase initialization failed.", e); alert("⚠ Supabase config is missing!"); }
 
-/* ==========================================================
-   AUDIO ENGINE (90% VOLUME)
-   ========================================================== */
 let audioCtx=null,musicStarted=false,masterGain=null;
 const MASTER_VOLUME=0.9;
 function createAudio(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}catch(e){return null;}}
@@ -610,15 +624,9 @@ function startMusic(){
 function tryPlay(){const ctx=createAudio();if(!ctx)return;if(ctx.state==='running'){if(!musicStarted)startMusic();}else{ctx.resume().then(()=>{if(!musicStarted)startMusic();}).catch(()=>{});}}
 ['click','touchstart','keydown'].forEach(ev=>{document.addEventListener(ev, tryPlay, {passive:true});});
 
-/* ==========================================================
-   VISITOR IP & DEVICE DETECTION
-   ========================================================== */
 function detectVisitorIP(){
   const ipEl=document.getElementById('visitorIP');
-  fetch('https://api.ipify.org?format=json')
-    .then(r=>r.json())
-    .then(data=>{ if(data&&data.ip){ ipEl.textContent=data.ip; } else { ipEl.textContent='HIDDEN'; } })
-    .catch(()=>{ ipEl.textContent='PROTECTED'; });
+  fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(data=>{ if(data&&data.ip){ ipEl.textContent=data.ip; } else { ipEl.textContent='HIDDEN'; } }).catch(()=>{ ipEl.textContent='PROTECTED'; });
 }
 function detectDevice(){
   const deviceEl = document.getElementById('visitorDevice');
@@ -639,9 +647,6 @@ function detectDevice(){
 }
 detectVisitorIP(); detectDevice();
 
-/* ==========================================================
-   LOADER
-   ========================================================== */
 const bootLines=['Initializing secure kernel...','Loading encryption modules...','Establishing tunnel to NULLSECTOR...','Verifying credentials...','Decrypting assets...','Mounting matrix rain engine...','Starting audio engine...','All systems operational.'];
 const bootLog=document.getElementById('bootLog');
 const bootPct=document.getElementById('bootPercent');
@@ -651,9 +656,6 @@ pushBootLine();
 const pctTimer=setInterval(()=>{pct=Math.min(pct+Math.random()*8,100);bootPct.textContent=Math.floor(pct)+'%';if(pct>=100)clearInterval(pctTimer);},200);
 setTimeout(()=>document.getElementById('loader').classList.add('hide'),3000);
 
-/* ==========================================================
-   LOGIN & SESSION MANAGEMENT
-   ========================================================== */
 const loginOverlay = document.getElementById('loginOverlay');
 const mainSite = document.getElementById('mainSite');
 const loginEmail = document.getElementById('loginEmail');
@@ -663,6 +665,7 @@ const signupBtn = document.getElementById('signupBtn');
 const loginMsg = document.getElementById('loginMsg');
 const darkwebBtn = document.getElementById('darkwebBtn');
 const logoutBtn = document.getElementById('logoutBtn');
+const downloadBtn = document.getElementById('downloadBtn');
 
 function showMessage(msg, type) { loginMsg.textContent = msg; loginMsg.className = 'login-msg ' + type; }
 loginEmail.addEventListener('input', function() { this.classList.toggle('fire-active', this.value.length > 0); });
@@ -690,6 +693,7 @@ async function loginUser() {
       mainSite.style.display = 'block'; 
       darkwebBtn.style.display = 'block'; 
       logoutBtn.style.display = 'block'; 
+      downloadBtn.style.display = 'inline-block';
       if (typeof updateUI === 'function') updateUI(); 
       if (typeof initChat === 'function') initChat(); 
     }, 1000);
@@ -704,9 +708,9 @@ async function logAttempt(email, type) {
 async function checkSession() {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (session) {
-    currentUser = session.user; loginOverlay.style.display = 'none'; mainSite.style.display = 'block'; darkwebBtn.style.display = 'block'; logoutBtn.style.display = 'block';
+    currentUser = session.user; loginOverlay.style.display = 'none'; mainSite.style.display = 'block'; darkwebBtn.style.display = 'block'; logoutBtn.style.display = 'block'; downloadBtn.style.display = 'inline-block';
     if (typeof updateUI === 'function') updateUI(); if (typeof initChat === 'function') initChat();
-  } else { loginOverlay.style.display = 'flex'; mainSite.style.display = 'none'; darkwebBtn.style.display = 'none'; logoutBtn.style.display = 'none'; }
+  } else { loginOverlay.style.display = 'flex'; mainSite.style.display = 'none'; darkwebBtn.style.display = 'none'; logoutBtn.style.display = 'none'; downloadBtn.style.display = 'none'; }
 }
 
 loginBtn.addEventListener('click', loginUser);
@@ -720,15 +724,13 @@ logoutBtn.addEventListener('click', async () => {
     mainSite.style.display = 'none';
     darkwebBtn.style.display = 'none';
     logoutBtn.style.display = 'none';
+    downloadBtn.style.display = 'none';
     loginEmail.value = '';
     loginPassword.value = '';
     showMessage('✅ Logged out successfully.', 'success');
   }
 });
 
-/* ==========================================================
-   AUTO-LOGOUT
-   ========================================================== */
 window.addEventListener('beforeunload', () => { try { supabaseClient.auth.signOut(); } catch(e) {} });
 let hiddenTimer = null;
 document.addEventListener('visibilitychange', () => {
@@ -737,9 +739,6 @@ document.addEventListener('visibilitychange', () => {
   } else { if (hiddenTimer) { clearTimeout(hiddenTimer); hiddenTimer = null; } }
 });
 
-/* ==========================================================
-   DARKWEB BUTTON - DIRETSO SA ADMIN.HTML (WALANG PROMPT)
-   ========================================================== */
 darkwebBtn.addEventListener('click', () => {
   darkwebBtn.style.animation = 'none';
   darkwebBtn.style.transform = 'scale(1.1)';
@@ -747,9 +746,6 @@ darkwebBtn.addEventListener('click', () => {
   setTimeout(() => { window.location.href = 'admin.html'; }, 400);
 });
 
-/* ==========================================================
-   CHAT SYSTEM
-   ========================================================== */
 const ADMIN_PASSWORD='Imachuinerts'; 
 const ADMIN_PALETTE=[
   {bg:'linear-gradient(135deg,#ff0080,#ff5c00)',border:'#ff0080',glow:'rgba(255,0,128,.7)',text:'#fff'},
@@ -813,20 +809,10 @@ async function sendMessage(text){
 
 chatFab.addEventListener('click',()=>{
   chatPanel.classList.toggle('open');
-  if(chatPanel.classList.contains('open')){
-    renderChat();
-    chatInput.focus();
-    document.body.classList.add('chat-open');
-  } else {
-    document.body.classList.remove('chat-open');
-  }
+  if(chatPanel.classList.contains('open')){ renderChat(); chatInput.focus(); document.body.classList.add('chat-open'); }
+  else { document.body.classList.remove('chat-open'); }
 });
-
-document.getElementById('chatCloseBtn').addEventListener('click',()=>{
-  chatPanel.classList.remove('open');
-  document.body.classList.remove('chat-open');
-});
-
+document.getElementById('chatCloseBtn').addEventListener('click',()=>{ chatPanel.classList.remove('open'); document.body.classList.remove('chat-open'); });
 document.getElementById('chatSend').addEventListener('click',()=>sendMessage(chatInput.value));
 chatInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendMessage(chatInput.value);});
 document.getElementById('viewCustomerBtn').addEventListener('click',()=>{ currentView='customer'; updateUI(); });
@@ -850,9 +836,6 @@ async function attemptPassword(){
 document.getElementById('pwConfirm').addEventListener('click',attemptPassword);
 pwInput.addEventListener('keydown',e=>{ if(e.key==='Enter')attemptPassword(); if(e.key==='Escape')closePwModal(); });
 
-/* ==========================================================
-   FORM VALIDATION
-   ========================================================== */
 const form=document.getElementById('contactForm'), submitBtn=document.getElementById('submitBtn'), formPanel=document.getElementById('formPanel');
 function showError(input,show){const field=input.closest('.field');if(field)field.classList.toggle('invalid',show);const err=field?.nextElementSibling;if(err&&err.classList.contains('error'))err.classList.toggle('show',show);}
 function validateField(input){let valid=true;const v=input.value.trim();if(input.hasAttribute('required')&&!v)valid=false;if(input.type==='email'&&v&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))valid=false;if(input.type==='tel'&&v&&!/^[0-9+\-\s]{7,15}$/.test(v))valid=false;if(input.name==='message'&&v&&v.length<10)valid=false;showError(input,!valid);return valid;}
@@ -873,144 +856,48 @@ form.addEventListener('submit',async e=>{
 });
 document.getElementById('sendAnotherBtn').addEventListener('click',()=>{form.reset();form.style.display='block';document.getElementById('successMsg').style.display='none';submitBtn.disabled=false;submitBtn.querySelector('span').textContent='SEND MESSAGE';});
 
-/* ==========================================================
-   VISUAL EFFECTS - SMOOTH 120FPS
-   ========================================================== */
 const loginMatrixCanvas = document.getElementById('loginMatrixCanvas');
 const lmx = loginMatrixCanvas.getContext('2d');
 const LOGIN_CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789IMACHUI_NULLSECTOR<>/\\{}[]#$%&';
 let loginDrops = [];
-function resizeLoginMatrix() {
-  if (!loginMatrixCanvas) return;
-  loginMatrixCanvas.width = window.innerWidth;
-  loginMatrixCanvas.height = window.innerHeight;
-  const cols = Math.floor(loginMatrixCanvas.width / 16);
-  loginDrops = new Array(cols).fill(1);
-}
-function drawLoginMatrix() {
-  if (!lmx) return;
-  lmx.fillStyle = 'rgba(2, 6, 10, 0.08)';
-  lmx.fillRect(0, 0, loginMatrixCanvas.width, loginMatrixCanvas.height);
-  lmx.fillStyle = '#00ffd5';
-  lmx.font = '16px "Share Tech Mono", monospace';
-  for (let i = 0; i < loginDrops.length; i++) {
-    const text = LOGIN_CHARS[(Math.random() * LOGIN_CHARS.length) | 0];
-    lmx.fillText(text, i * 16, loginDrops[i] * 16);
-    if (loginDrops[i] * 16 > loginMatrixCanvas.height && Math.random() > 0.975) loginDrops[i] = 0;
-    loginDrops[i]++;
-  }
-}
+function resizeLoginMatrix() { if (!loginMatrixCanvas) return; loginMatrixCanvas.width = window.innerWidth; loginMatrixCanvas.height = window.innerHeight; const cols = Math.floor(loginMatrixCanvas.width / 16); loginDrops = new Array(cols).fill(1); }
+function drawLoginMatrix() { if (!lmx) return; lmx.fillStyle = 'rgba(2, 6, 10, 0.08)'; lmx.fillRect(0, 0, loginMatrixCanvas.width, loginMatrixCanvas.height); lmx.fillStyle = '#00ffd5'; lmx.font = '16px "Share Tech Mono", monospace'; for (let i = 0; i < loginDrops.length; i++) { const text = LOGIN_CHARS[(Math.random() * LOGIN_CHARS.length) | 0]; lmx.fillText(text, i * 16, loginDrops[i] * 16); if (loginDrops[i] * 16 > loginMatrixCanvas.height && Math.random() > 0.975) loginDrops[i] = 0; loginDrops[i]++; } }
 
 const lec = document.getElementById('loginElectricCanvas');
 const lectx = lec.getContext('2d');
 let lSparks = [], lLightnings = [], lSparkTimer = 0, lLightningTimer = 0;
 function resizeLEC() { if (!lec) return; lec.width = window.innerWidth; lec.height = window.innerHeight; }
 function spawnLSparks(x, y) { if (lSparks.length >= 150) return; const a = Math.random() * Math.PI * 2; const sp = 1 + Math.random() * 3; lSparks.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, decay: 0.02 + Math.random() * 0.03, size: 1 + Math.random() * 2 }); }
-function spawnLLightning() {
-  const sx = Math.random() * lec.width; const ex = sx + (Math.random() - 0.5) * 400; const segs = [];
-  for (let i = 0; i <= 14; i++) { const t = i / 14; segs.push({ x: sx + (ex - sx) * t + (Math.random() - 0.5) * 60, y: t * lec.height }); }
-  lLightnings.push({ segs, life: 1, decay: 0.06 });
-  if (lLightnings.length > 5) lLightnings.shift();
-}
-function updateLoginElectric(dt) {
-  if (!lectx) return;
-  lectx.clearRect(0, 0, lec.width, lec.height);
-  lSparkTimer += dt;
-  if (lSparkTimer > 100) { lSparkTimer = 0; const side = (Math.random() * 4) | 0; let x, y;
-    if (side === 0) { x = Math.random() * lec.width; y = 0; } else if (side === 1) { x = lec.width; y = Math.random() * lec.height; }
-    else if (side === 2) { x = Math.random() * lec.width; y = lec.height; } else { x = 0; y = Math.random() * lec.height; }
-    spawnLSparks(x, y); }
-  lLightningTimer += dt;
-  if (lLightningTimer > 800) { lLightningTimer = 0; if (Math.random() > 0.5) spawnLLightning(); }
-  for (let i = lSparks.length - 1; i >= 0; i--) { const s = lSparks[i]; s.x += s.vx; s.y += s.vy; s.vx *= 0.98; s.vy *= 0.98; s.life -= s.decay;
-    if (s.life <= 0) { lSparks.splice(i, 1); continue; }
-    lectx.beginPath(); lectx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2); lectx.fillStyle = 'rgba(0,255,213,' + s.life + ')'; lectx.shadowBlur = 15 * s.life; lectx.shadowColor = '#00ffd5'; lectx.fill(); }
-  for (let i = lLightnings.length - 1; i >= 0; i--) { const l = lLightnings[i]; l.life -= l.decay; if (l.life <= 0) { lLightnings.splice(i, 1); continue; }
-    lectx.beginPath(); lectx.moveTo(l.segs[0].x, l.segs[0].y);
-    for (let j = 1; j < l.segs.length; j++) lectx.lineTo(l.segs[j].x, l.segs[j].y);
-    lectx.strokeStyle = 'rgba(0,255,213,' + l.life + ')'; lectx.lineWidth = 2; lectx.shadowBlur = 25; lectx.shadowColor = '#00ffd5'; lectx.stroke(); }
-}
+function spawnLLightning() { const sx = Math.random() * lec.width; const ex = sx + (Math.random() - 0.5) * 400; const segs = []; for (let i = 0; i <= 14; i++) { const t = i / 14; segs.push({ x: sx + (ex - sx) * t + (Math.random() - 0.5) * 60, y: t * lec.height }); } lLightnings.push({ segs, life: 1, decay: 0.06 }); if (lLightnings.length > 5) lLightnings.shift(); }
+function updateLoginElectric(dt) { if (!lectx) return; lectx.clearRect(0, 0, lec.width, lec.height); lSparkTimer += dt; if (lSparkTimer > 100) { lSparkTimer = 0; const side = (Math.random() * 4) | 0; let x, y; if (side === 0) { x = Math.random() * lec.width; y = 0; } else if (side === 1) { x = lec.width; y = Math.random() * lec.height; } else if (side === 2) { x = Math.random() * lec.width; y = lec.height; } else { x = 0; y = Math.random() * lec.height; } spawnLSparks(x, y); } lLightningTimer += dt; if (lLightningTimer > 800) { lLightningTimer = 0; if (Math.random() > 0.5) spawnLLightning(); } for (let i = lSparks.length - 1; i >= 0; i--) { const s = lSparks[i]; s.x += s.vx; s.y += s.vy; s.vx *= 0.98; s.vy *= 0.98; s.life -= s.decay; if (s.life <= 0) { lSparks.splice(i, 1); continue; } lectx.beginPath(); lectx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2); lectx.fillStyle = 'rgba(0,255,213,' + s.life + ')'; lectx.shadowBlur = 15 * s.life; lectx.shadowColor = '#00ffd5'; lectx.fill(); } for (let i = lLightnings.length - 1; i >= 0; i--) { const l = lLightnings[i]; l.life -= l.decay; if (l.life <= 0) { lLightnings.splice(i, 1); continue; } lectx.beginPath(); lectx.moveTo(l.segs[0].x, l.segs[0].y); for (let j = 1; j < l.segs.length; j++) lectx.lineTo(l.segs[j].x, l.segs[j].y); lectx.strokeStyle = 'rgba(0,255,213,' + l.life + ')'; lectx.lineWidth = 2; lectx.shadowBlur = 25; lectx.shadowColor = '#00ffd5'; lectx.stroke(); } }
 
 const matrixCanvas = document.getElementById('matrix');
 const mtx = matrixCanvas.getContext('2d');
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789IMACHUI_NULLSECTOR<>/\\{}[]#$%&';
 let drops = [];
-function resizeMatrix() {
-  if (!matrixCanvas) return;
-  matrixCanvas.width = window.innerWidth;
-  matrixCanvas.height = window.innerHeight;
-  const cols = Math.floor(matrixCanvas.width / 14);
-  drops = new Array(cols).fill(1);
-}
-function drawMatrix() {
-  if (!mtx) return;
-  mtx.fillStyle = 'rgba(2, 6, 10, 0.09)';
-  mtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-  mtx.fillStyle = '#00ffd5';
-  mtx.font = '14px "Share Tech Mono", monospace';
-  for (let i = 0; i < drops.length; i++) {
-    const text = CHARS[(Math.random() * CHARS.length) | 0];
-    mtx.fillText(text, i * 14, drops[i] * 14);
-    if (drops[i] * 14 > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
-    drops[i]++;
-  }
-}
+function resizeMatrix() { if (!matrixCanvas) return; matrixCanvas.width = window.innerWidth; matrixCanvas.height = window.innerHeight; const cols = Math.floor(matrixCanvas.width / 14); drops = new Array(cols).fill(1); }
+function drawMatrix() { if (!mtx) return; mtx.fillStyle = 'rgba(2, 6, 10, 0.09)'; mtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height); mtx.fillStyle = '#00ffd5'; mtx.font = '14px "Share Tech Mono", monospace'; for (let i = 0; i < drops.length; i++) { const text = CHARS[(Math.random() * CHARS.length) | 0]; mtx.fillText(text, i * 14, drops[i] * 14); if (drops[i] * 14 > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; } }
 
 const ec = document.getElementById('electricCanvas');
 const ectx = ec.getContext('2d');
 let sparks = [], lightnings = [], sparkTimer = 0, lightningTimer = 0;
 function resizeEC() { if (!ec) return; ec.width = window.innerWidth; ec.height = window.innerHeight; }
 function spawnSpark(x, y) { if (sparks.length >= 200) return; const a = Math.random() * Math.PI * 2; const sp = 1 + Math.random() * 3; sparks.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, decay: 0.02 + Math.random() * 0.03, size: 1 + Math.random() * 2 }); }
-function spawnLightningPath() {
-  const sx = Math.random() * ec.width; const ex = sx + (Math.random() - 0.5) * 400; const segs = [];
-  for (let i = 0; i <= 14; i++) { const t = i / 14; segs.push({ x: sx + (ex - sx) * t + (Math.random() - 0.5) * 60, y: t * ec.height }); }
-  lightnings.push({ segs, life: 1, decay: 0.06 });
-  if (lightnings.length > 5) lightnings.shift();
-}
-function updateElectric(dt) {
-  if (!ectx) return;
-  ectx.clearRect(0, 0, ec.width, ec.height);
-  sparkTimer += dt;
-  if (sparkTimer > 120) { sparkTimer = 0; const side = (Math.random() * 4) | 0; let x, y;
-    if (side === 0) { x = Math.random() * ec.width; y = 0; } else if (side === 1) { x = ec.width; y = Math.random() * ec.height; }
-    else if (side === 2) { x = Math.random() * ec.width; y = ec.height; } else { x = 0; y = Math.random() * ec.height; }
-    spawnSpark(x, y); }
-  lightningTimer += dt;
-  if (lightningTimer > 900) { lightningTimer = 0; if (Math.random() > 0.55) spawnLightningPath(); }
-  for (let i = sparks.length - 1; i >= 0; i--) { const s = sparks[i]; s.x += s.vx; s.y += s.vy; s.vx *= 0.98; s.vy *= 0.98; s.life -= s.decay;
-    if (s.life <= 0) { sparks.splice(i, 1); continue; }
-    ectx.beginPath(); ectx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2); ectx.fillStyle = 'rgba(0,255,213,' + s.life + ')'; ectx.shadowBlur = 15 * s.life; ectx.shadowColor = '#00ffd5'; ectx.fill(); }
-  for (let i = lightnings.length - 1; i >= 0; i--) { const l = lightnings[i]; l.life -= l.decay; if (l.life <= 0) { lightnings.splice(i, 1); continue; }
-    ectx.beginPath(); ectx.moveTo(l.segs[0].x, l.segs[0].y);
-    for (let j = 1; j < l.segs.length; j++) ectx.lineTo(l.segs[j].x, l.segs[j].y);
-    ectx.strokeStyle = 'rgba(0,255,213,' + l.life + ')'; ectx.lineWidth = 2; ectx.shadowBlur = 25; ectx.shadowColor = '#00ffd5'; ectx.stroke(); }
-}
+function spawnLightningPath() { const sx = Math.random() * ec.width; const ex = sx + (Math.random() - 0.5) * 400; const segs = []; for (let i = 0; i <= 14; i++) { const t = i / 14; segs.push({ x: sx + (ex - sx) * t + (Math.random() - 0.5) * 60, y: t * ec.height }); } lightnings.push({ segs, life: 1, decay: 0.06 }); if (lightnings.length > 5) lightnings.shift(); }
+function updateElectric(dt) { if (!ectx) return; ectx.clearRect(0, 0, ec.width, ec.height); sparkTimer += dt; if (sparkTimer > 120) { sparkTimer = 0; const side = (Math.random() * 4) | 0; let x, y; if (side === 0) { x = Math.random() * ec.width; y = 0; } else if (side === 1) { x = ec.width; y = Math.random() * ec.height; } else if (side === 2) { x = Math.random() * ec.width; y = ec.height; } else { x = 0; y = Math.random() * ec.height; } spawnSpark(x, y); } lightningTimer += dt; if (lightningTimer > 900) { lightningTimer = 0; if (Math.random() > 0.55) spawnLightningPath(); } for (let i = sparks.length - 1; i >= 0; i--) { const s = sparks[i]; s.x += s.vx; s.y += s.vy; s.vx *= 0.98; s.vy *= 0.98; s.life -= s.decay; if (s.life <= 0) { sparks.splice(i, 1); continue; } ectx.beginPath(); ectx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2); ectx.fillStyle = 'rgba(0,255,213,' + s.life + ')'; ectx.shadowBlur = 15 * s.life; ectx.shadowColor = '#00ffd5'; ectx.fill(); } for (let i = lightnings.length - 1; i >= 0; i--) { const l = lightnings[i]; l.life -= l.decay; if (l.life <= 0) { lightnings.splice(i, 1); continue; } ectx.beginPath(); ectx.moveTo(l.segs[0].x, l.segs[0].y); for (let j = 1; j < l.segs.length; j++) ectx.lineTo(l.segs[j].x, l.segs[j].y); ectx.strokeStyle = 'rgba(0,255,213,' + l.life + ')'; ectx.lineWidth = 2; ectx.shadowBlur = 25; ectx.shadowColor = '#00ffd5'; ectx.stroke(); } }
 
-let lastTime = 0;
-let loginMatrixAcc = 0;
-let mainMatrixAcc = 0;
-
+let lastTime = 0, loginMatrixAcc = 0, mainMatrixAcc = 0;
 function masterLoop(t) {
   const dt = Math.min(t - lastTime || 16, 50);
   lastTime = t;
-
   loginMatrixAcc += dt;
-  if (loginMatrixAcc >= 55) {
-    loginMatrixAcc = 0;
-    if (loginOverlay && loginOverlay.style.display !== 'none') drawLoginMatrix();
-  }
+  if (loginMatrixAcc >= 55) { loginMatrixAcc = 0; if (loginOverlay && loginOverlay.style.display !== 'none') drawLoginMatrix(); }
   if (loginOverlay && loginOverlay.style.display !== 'none') updateLoginElectric(dt);
-
   mainMatrixAcc += dt;
-  if (mainMatrixAcc >= 55) {
-    mainMatrixAcc = 0;
-    if (mainSite && mainSite.style.display === 'block') drawMatrix();
-  }
+  if (mainMatrixAcc >= 55) { mainMatrixAcc = 0; if (mainSite && mainSite.style.display === 'block') drawMatrix(); }
   if (mainSite && mainSite.style.display === 'block') updateElectric(dt);
-
   requestAnimationFrame(masterLoop);
 }
-
 window.addEventListener('resize', () => { resizeLoginMatrix(); resizeLEC(); resizeMatrix(); resizeEC(); });
 resizeLoginMatrix(); resizeLEC(); resizeMatrix(); resizeEC();
 requestAnimationFrame(masterLoop);

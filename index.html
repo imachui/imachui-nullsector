@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--neon:#00ffd5;--neon-2:#00ff9d;--neon-dim:rgba(0,255,213,.3);--cyan:#00e5ff;--red:#ff2b4e;--bg:#02060a;--panel:rgba(5,15,20,.78);--border:rgba(0,255,213,.25);--text:#c8fff5;--muted:#4a8b82}
+:root{--neon:#00ffd5;--neon-2:#00ff9d;--neon-dim:rgba(0,255,213,.3);--cyan:#00e5ff;--red:#ff2b4e;--bg:#02060a;--panel:rgba(5,15,20,.78);--border:rgba(0,255,213,.25);--text:#c8fff5;--muted:#4a8b82;--gold:#ffea00;--green:#00ff88}
 html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;overflow-x:hidden;min-height:100vh;position:relative;overscroll-behavior:none}
 
@@ -80,16 +80,16 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;ov
 .logout-btn:hover { background: #ffea00; color: #000; box-shadow: 0 0 50px #ffea00, 0 0 100px #ffea00; animation: none; }
 
 /* ==========================================================
-   DOWNLOAD NEXUS BUTTON
+   APP STORE BUTTON
    ========================================================== */
-.download-btn {
+.appstore-btn {
   position: fixed;
   top: 130px;
   left: 20px;
   z-index: 999;
   background: transparent;
-  border: 2px solid #00ff88;
-  color: #00ff88;
+  border: 2px solid var(--green);
+  color: var(--green);
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
   font-size: 0.75rem;
@@ -108,10 +108,10 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;ov
   0% { box-shadow: 0 0 15px rgba(0,255,136,.4), inset 0 0 10px rgba(0,255,136,.1); }
   100% { box-shadow: 0 0 35px rgba(0,255,136,.8), inset 0 0 15px rgba(0,255,136,.3); }
 }
-.download-btn:hover {
-  background: #00ff88;
+.appstore-btn:hover {
+  background: var(--green);
   color: #000;
-  box-shadow: 0 0 50px #00ff88, 0 0 100px rgba(0,255,136,.6);
+  box-shadow: 0 0 50px var(--green), 0 0 100px rgba(0,255,136,.6);
   animation: none;
   transform: scale(1.05);
 }
@@ -119,11 +119,236 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;ov
 /* AUTO-HIDE KAPAG BUKAS ANG CHAT */
 body.chat-open .darkweb-btn,
 body.chat-open .logout-btn,
-body.chat-open .download-btn {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-20px);
-  transition: opacity 0.3s, transform 0.3s;
+body.chat-open .appstore-btn {
+  animation: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+/* ==========================================================
+   APP STORE MODAL
+   ========================================================== */
+.appstore-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+.appstore-modal.show {
+  display: flex;
+  animation: modalIn .3s ease;
+}
+@keyframes modalIn { from { opacity: 0; } to { opacity: 1; } }
+
+.appstore-container {
+  max-width: 900px;
+  width: 100%;
+  background: rgba(5,15,20,.95);
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  padding: 30px 25px;
+  box-shadow: 0 0 60px rgba(0,255,136,.4), inset 0 0 60px rgba(0,255,136,.05);
+  position: relative;
+  animation: containerIn .4s ease;
+}
+@keyframes containerIn { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.appstore-container::before,
+.appstore-container::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--green);
+}
+.appstore-container::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.appstore-container::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+.appstore-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: 1px solid var(--red);
+  color: var(--red);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .25s;
+  font-family: inherit;
+}
+.appstore-close:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px var(--red); }
+
+.appstore-header {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(0,255,136,.3);
+}
+.appstore-header h1 {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--green);
+  font-size: 1.6rem;
+  letter-spacing: 5px;
+  text-shadow: 0 0 15px var(--green), 0 0 30px var(--green);
+  margin-bottom: 6px;
+  animation: headerGlow 2.5s ease-in-out infinite alternate;
+}
+@keyframes headerGlow { 0% { filter: brightness(1); } 100% { filter: brightness(1.4); } }
+.appstore-header p {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.app-card {
+  background: rgba(0,0,0,.5);
+  border: 1.5px solid rgba(0,255,136,.4);
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  transition: all .3s ease;
+  overflow: hidden;
+  cursor: default;
+}
+.app-card:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 30px rgba(0,255,136,.5), inset 0 0 30px rgba(0,255,136,.05);
+  transform: translateY(-5px);
+}
+
+.app-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,255,136,.1), transparent);
+  transition: left .6s;
+}
+.app-card:hover::before { left: 100%; }
+
+.app-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  display: block;
+  filter: drop-shadow(0 0 12px var(--green));
+}
+
+.app-name {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  text-shadow: 0 0 10px rgba(0,255,136,.5);
+}
+
+.app-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  min-height: 40px;
+}
+
+.app-tag {
+  display: inline-block;
+  background: rgba(255,234,0,.15);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.app-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,255,136,.15);
+}
+
+.app-price {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 1.3rem;
+  color: var(--green);
+  text-shadow: 0 0 15px var(--green);
+}
+
+.app-price small {
+  display: block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--muted);
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
+
+.btn-buy-app {
+  padding: 10px 16px;
+  background: transparent;
+  border: 2px solid var(--green);
+  border-radius: 6px;
+  color: var(--green);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .25s;
+  white-space: nowrap;
+  box-shadow: 0 0 12px rgba(0,255,136,.3);
+}
+.btn-buy-app:hover {
+  background: var(--green);
+  color: #000;
+  box-shadow: 0 0 30px var(--green), 0 0 60px rgba(0,255,136,.5);
+  transform: scale(1.05);
+}
+
+.appstore-footer {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0,255,136,.2);
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 2px;
 }
 
 /* ============= MAIN SITE CSS ============= */
@@ -165,7 +390,7 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 @media (max-width:700px){.warning-banner{font-size:.6rem;padding:8px 10px}}
 .stage{position:relative;z-index:5;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:70px 80px 70px;align-items:center;max-width:1700px;margin:0 auto;opacity:0;animation:fadeIn .8s ease 3s forwards}
 @keyframes fadeIn{to{opacity:1}}
-@media (max-width:1100px){.stage{grid-template-columns:1fr;padding:120px 20px 100px}}
+@media (max-width:1100px){.stage{grid-template-columns:1fr;padding:180px 20px 100px}}
 .brand-col{display:flex;flex-direction:column;gap:24px;padding-left:20px;position:relative}
 .brand-logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(1.4rem,3.4vw,3rem);letter-spacing:3px;line-height:1.1;color:#fff;position:relative;text-shadow:0 0 6px rgba(255,255,255,.4),0 0 20px rgba(0,255,213,.3);animation:glow 3s ease-in-out infinite,logoGlitch 7s infinite}
 @keyframes logoGlitch{0%,92%,100%{transform:translate(0);text-shadow:0 0 6px rgba(255,255,255,.4),0 0 20px rgba(0,255,213,.3)}93%{transform:translate(-2px,1px);text-shadow:3px 0 var(--red),-3px 0 var(--cyan)}95%{transform:translate(2px,-1px);text-shadow:-3px 0 var(--red),3px 0 var(--cyan)}}
@@ -313,19 +538,22 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 @media (max-width: 600px) {
   .brand-logo { display: block !important; visibility: visible !important; opacity: 1 !important; letter-spacing: 1.5px !important; font-size: 1.8rem !important; margin-bottom: 10px !important; word-break: break-word !important; }
   .brand-hero { letter-spacing: 2px !important; min-height: 100px; }
-  .stage { padding-top: 180px !important; padding-left: 15px !important; padding-right: 15px !important; gap: 25px; }
+  .stage { padding-top: 220px !important; padding-left: 15px !important; padding-right: 15px !important; gap: 25px; }
   .field input, .field select, .field textarea { font-size: 16px !important; padding: 12px 10px !important; }
   .field-label { font-size: 0.55rem !important; left: 36px !important; }
   .field-icon { width: 40px !important; height: 40px !important; }
   .fab-group { bottom: 90px !important; right: 15px !important; }
-  .chat-panel { right: 10px !important; bottom: 160px !important; width: calc(100vw - 20px) !important; height: calc(100vh - 220px) !important; }
+  .chat-panel { right: 10px !important; bottom: 160px !important; width: calc(100vw - 20px) !important; height: calc(100vh - 260px) !important; }
   .warning-banner { font-size: 0.6rem !important; padding: 9px 10px !important; }
   .bottom-bar { padding: 10px 15px !important; }
   .bottom-bar .brand-line { font-size: 0.7rem !important; letter-spacing: 4px !important; }
   .bottom-bar .sep-line { font-size: 0.55rem !important; letter-spacing: 2px !important; }
-  .darkweb-btn, .logout-btn { font-size: 0.6rem !important; padding: 6px 10px !important; top: 90px !important; }
-  .download-btn { font-size: 0.6rem !important; padding: 6px 10px !important; top: 130px !important; }
+  .darkweb-btn, .logout-btn { font-size: 0.55rem !important; padding: 6px 10px !important; top: 90px !important; }
+  .appstore-btn { font-size: 0.55rem !important; padding: 6px 10px !important; top: 130px !important; }
   #loginOverlay .login-box { max-width: 320px; padding: 22px 18px; }
+  .apps-grid { grid-template-columns: 1fr !important; }
+  .appstore-container { padding: 22px 15px; }
+  .appstore-header h1 { font-size: 1.2rem; letter-spacing: 3px; }
 }
 </style>
 </head>
@@ -363,13 +591,69 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
   DARKWEB
 </button>
 
-<!-- DOWNLOAD NEXUS BUTTON -->
-<a class="download-btn" id="downloadBtn" href="https://github.com/imachui/imachui-nullsector/releases/download/v1.0/IMACHUI.Nexus.remote.Access.msi" download style="display:none;">
-  ⬇ DOWNLOAD NEXUS
-</a>
+<!-- APP STORE BUTTON -->
+<button class="appstore-btn" id="appstoreBtn" style="display:none;" onclick="openAppStore()">
+  🛒 APP STORE
+</button>
 
 <!-- LOG OUT BUTTON -->
 <button id="logoutBtn" class="logout-btn" style="display:none;">LOG OUT</button>
+
+<!-- APP STORE MODAL -->
+<div class="appstore-modal" id="appstoreModal">
+  <div class="appstore-container">
+    <button class="appstore-close" onclick="closeAppStore()">✕</button>
+    <div class="appstore-header">
+      <h1>IMACHUI APP STORE</h1>
+      <p>PREMIUM APPS ◆ LIFETIME ACCESS ◆ ONE-TIME PAYMENT</p>
+    </div>
+
+    <div class="apps-grid">
+      <!-- APP 1: IMACHUI NEXUS -->
+      <div class="app-card">
+        <span class="app-icon">🖥️</span>
+        <div class="app-name">IMACHUI NEXUS</div>
+        <div class="app-desc">Remote access tool para sa PC. Lifetime license. Advanced remote control at file management.</div>
+        <span class="app-tag">⭐ Premium Lifetime</span>
+        <div class="app-price-row">
+          <div class="app-price">₱199<small>ONE-TIME PAYMENT</small></div>
+          <a href="PAYMONGO_LINK_NEXUS" target="_blank" class="btn-buy-app">💳 BUY NOW</a>
+        </div>
+      </div>
+
+      <!-- APP 2: IMACHUI APPSTORE (APK) -->
+      <div class="app-card">
+        <span class="app-icon">📱</span>
+        <div class="app-name">IMACHUI APPSTORE</div>
+        <div class="app-desc">All-in-one app store para sa Android. May sariling catalog ng premium apps at tools.</div>
+        <span class="app-tag">⭐ Premium Lifetime</span>
+        <div class="app-price-row">
+          <div class="app-price">₱249<small>ONE-TIME PAYMENT</small></div>
+          <a href="PAYMONGO_LINK_APPSTORE" target="_blank" class="btn-buy-app">💳 BUY NOW</a>
+        </div>
+      </div>
+
+      <!-- KOPYAHIN ITO PARA SA BAGONG APP -->
+      <!-- 
+      <div class="app-card">
+        <span class="app-icon">📦</span>
+        <div class="app-name">APP NAME</div>
+        <div class="app-desc">Description of the app.</div>
+        <span class="app-tag">⭐ Premium Lifetime</span>
+        <div class="app-price-row">
+          <div class="app-price">₱XXX<small>ONE-TIME PAYMENT</small></div>
+          <a href="PAYMONGO_LINK" target="_blank" class="btn-buy-app">💳 BUY NOW</a>
+        </div>
+      </div>
+      -->
+
+    </div>
+
+    <div class="appstore-footer">
+      ◆ LIFETIME PREMIUM ACCESS ◆ SECURE PAYMENT VIA PAYMONGO ◆ NO MONTHLY FEES ◆
+    </div>
+  </div>
+</div>
 
 <!-- MAIN SITE -->
 <div id="mainSite" style="display:none;">
@@ -665,7 +949,7 @@ const signupBtn = document.getElementById('signupBtn');
 const loginMsg = document.getElementById('loginMsg');
 const darkwebBtn = document.getElementById('darkwebBtn');
 const logoutBtn = document.getElementById('logoutBtn');
-const downloadBtn = document.getElementById('downloadBtn');
+const appstoreBtn = document.getElementById('appstoreBtn');
 
 function showMessage(msg, type) { loginMsg.textContent = msg; loginMsg.className = 'login-msg ' + type; }
 loginEmail.addEventListener('input', function() { this.classList.toggle('fire-active', this.value.length > 0); });
@@ -693,7 +977,7 @@ async function loginUser() {
       mainSite.style.display = 'block'; 
       darkwebBtn.style.display = 'block'; 
       logoutBtn.style.display = 'block'; 
-      downloadBtn.style.display = 'inline-block';
+      appstoreBtn.style.display = 'inline-block';
       if (typeof updateUI === 'function') updateUI(); 
       if (typeof initChat === 'function') initChat(); 
     }, 1000);
@@ -708,9 +992,9 @@ async function logAttempt(email, type) {
 async function checkSession() {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (session) {
-    currentUser = session.user; loginOverlay.style.display = 'none'; mainSite.style.display = 'block'; darkwebBtn.style.display = 'block'; logoutBtn.style.display = 'block'; downloadBtn.style.display = 'inline-block';
+    currentUser = session.user; loginOverlay.style.display = 'none'; mainSite.style.display = 'block'; darkwebBtn.style.display = 'block'; logoutBtn.style.display = 'block'; appstoreBtn.style.display = 'inline-block';
     if (typeof updateUI === 'function') updateUI(); if (typeof initChat === 'function') initChat();
-  } else { loginOverlay.style.display = 'flex'; mainSite.style.display = 'none'; darkwebBtn.style.display = 'none'; logoutBtn.style.display = 'none'; downloadBtn.style.display = 'none'; }
+  } else { loginOverlay.style.display = 'flex'; mainSite.style.display = 'none'; darkwebBtn.style.display = 'none'; logoutBtn.style.display = 'none'; appstoreBtn.style.display = 'none'; }
 }
 
 loginBtn.addEventListener('click', loginUser);
@@ -724,7 +1008,8 @@ logoutBtn.addEventListener('click', async () => {
     mainSite.style.display = 'none';
     darkwebBtn.style.display = 'none';
     logoutBtn.style.display = 'none';
-    downloadBtn.style.display = 'none';
+    appstoreBtn.style.display = 'none';
+    closeAppStore();
     loginEmail.value = '';
     loginPassword.value = '';
     showMessage('✅ Logged out successfully.', 'success');
@@ -744,6 +1029,22 @@ darkwebBtn.addEventListener('click', () => {
   darkwebBtn.style.transform = 'scale(1.1)';
   darkwebBtn.style.boxShadow = '0 0 80px #ff2b4e, 0 0 150px #ff2b4e';
   setTimeout(() => { window.location.href = 'admin.html'; }, 400);
+});
+
+/* APP STORE MODAL TOGGLE */
+function openAppStore() {
+  document.getElementById('appstoreModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeAppStore() {
+  document.getElementById('appstoreModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.getElementById('appstoreModal').addEventListener('click', (e) => {
+  if (e.target.id === 'appstoreModal') closeAppStore();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAppStore();
 });
 
 const ADMIN_PASSWORD='Imachuinerts'; 

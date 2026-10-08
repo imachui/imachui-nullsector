@@ -3,21 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IMACHUI App Store</title>
-    <!-- Premium Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>IMACHUI System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
     <style>
         /* ===== CSS Reset & Base ===== */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg-primary: #050505;
             --bg-secondary: #0a0a0a;
@@ -33,539 +23,257 @@
             --shadow-glow: 0 0 30px rgba(0, 255, 136, 0.15);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
             min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            position: relative;
         }
-
-        /* Ambient background glow */
         body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.03) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
         }
+        .hidden { display: none !important; }
 
-        /* ===== Main Store Container ===== */
+        /* ===== LOGIN SCREEN ===== */
+        .login-container {
+            position: relative; z-index: 1; width: 100%; max-width: 400px;
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            border-radius: 24px; padding: 3rem 2.5rem; backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-glow); text-align: center;
+        }
+        .login-container h1 {
+            font-size: 1.5rem; font-weight: 800; letter-spacing: 0.15em;
+            text-transform: uppercase; background: linear-gradient(135deg, #fff 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem;
+        }
+        .input-group { margin-bottom: 1.25rem; text-align: left; }
+        .input-group label {
+            display: block; font-size: 0.7rem; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.5rem;
+        }
+        .input-group input {
+            width: 100%; padding: 0.85rem 1rem; background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border-subtle); border-radius: 10px;
+            color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+        .input-group input:focus { outline: none; border-color: var(--neon-green); box-shadow: 0 0 15px var(--neon-green-glow); }
+        .login-btn {
+            width: 100%; padding: 0.9rem; background: transparent; border: 1.5px solid var(--neon-green);
+            border-radius: 10px; color: var(--neon-green); font-family: 'Inter', sans-serif;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            cursor: pointer; transition: var(--transition-smooth); margin-top: 1rem;
+        }
+        .login-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 30px var(--neon-green-glow); }
+        .error-msg { color: #ff4444; font-size: 0.75rem; margin-top: 0.5rem; display: none; }
+
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-wrapper { position: relative; z-index: 1; width: 100%; max-width: 1100px; }
+        .dashboard-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            border-radius: 16px; padding: 1rem 2rem; margin-bottom: 2rem;
+            backdrop-filter: blur(20px); box-shadow: var(--shadow-glow);
+        }
+        .dashboard-header h1 { font-size: 1.2rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--neon-green); }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links button {
+            background: transparent; border: none; color: var(--text-secondary);
+            font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: var(--transition-smooth);
+            padding: 0.5rem 1rem; border-radius: 8px;
+        }
+        .nav-links button:hover, .nav-links button.active { color: var(--neon-green); background: rgba(0, 255, 136, 0.05); }
+        .logout-btn {
+            background: transparent; border: 1px solid rgba(255, 68, 68, 0.3); color: #ff4444;
+            padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: var(--transition-smooth);
+        }
+        .logout-btn:hover { background: rgba(255, 68, 68, 0.1); border-color: #ff4444; }
+
+        /* ===== DASHBOARD CONTENT ===== */
+        .dashboard-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .widget {
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            border-radius: 16px; padding: 2rem; backdrop-filter: blur(20px); transition: var(--transition-smooth);
+        }
+        .widget:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--neon-green-glow); }
+        .widget h2 { font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-primary); }
+        .widget p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ===== STORE ===== */
         .store-container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 880px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 24px;
-            padding: 3rem 2.5rem 2.5rem;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            position: relative; width: 100%; background: var(--bg-card);
+            border: 1px solid var(--border-subtle); border-radius: 24px;
+            padding: 3rem 2.5rem 2.5rem; backdrop-filter: blur(20px);
             box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
             transition: var(--transition-smooth);
         }
+        .store-container:hover { border-color: var(--border-hover); box-shadow: 0 0 50px rgba(0, 255, 136, 0.2); }
+        .store-header { text-align: center; margin-bottom: 2.5rem; position: relative; }
+        .store-header h1 { font-size: 2rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, var(--neon-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.75rem; }
+        .store-tagline { display: flex; align-items: center; justify-content: center; gap: 0.75rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); }
+        .store-tagline span { color: var(--neon-green); font-size: 0.5rem; }
+        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        .app-card { background: rgba(10, 10, 10, 0.6); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 2rem 1.75rem; display: flex; flex-direction: column; transition: var(--transition-smooth); position: relative; overflow: hidden; }
+        .app-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--neon-green), transparent); opacity: 0; transition: var(--transition-smooth); }
+        .app-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--neon-green-glow); }
+        .app-card:hover::before { opacity: 1; }
+        .app-icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05)); border: 1px solid rgba(0, 255, 136, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; font-size: 1.4rem; color: var(--neon-green); }
+        .app-card h2 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; color: var(--text-primary); }
+        .app-description { font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); flex-grow: 1; margin-bottom: 1.25rem; }
+        .badge-free { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 6px; padding: 0.3rem 0.75rem; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--neon-green); width: fit-content; margin-bottom: 1rem; }
+        .app-specs { display: flex; align-items: center; gap: 0.75rem; font-size: 0.65rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+        .app-specs span { display: flex; align-items: center; gap: 0.3rem; }
+        .app-specs .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-muted); }
+        .download-btn { display: block; width: 100%; padding: 0.9rem; background: transparent; border: 1.5px solid var(--neon-green); border-radius: 10px; color: var(--neon-green); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: var(--transition-smooth); position: relative; overflow: hidden; }
+        .download-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent); transition: left 0.5s ease; }
+        .download-btn:hover::before { left: 100%; }
+        .download-btn:hover { background: var(--neon-green); color: #000000; box-shadow: 0 0 30px var(--neon-green-glow); }
+        .store-footer { text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+        .store-footer span { color: var(--neon-green); font-size: 0.4rem; }
 
-        .store-container:hover {
-            border-color: var(--border-hover);
-            box-shadow: 0 0 50px rgba(0, 255, 136, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        }
+        /* ===== MODAL ===== */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 1.5rem; z-index: 1000; opacity: 0; visibility: hidden; transition: var(--transition-smooth); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--bg-secondary); border: 1px solid var(--border-hover); border-radius: 20px; padding: 2.5rem; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 0 60px var(--neon-green-glow); transform: scale(0.9); transition: var(--transition-smooth); }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-content h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--neon-green); margin-bottom: 0.75rem; }
+        .modal-content p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem; }
+        .modal-actions { display: flex; gap: 0.75rem; justify-content: center; }
+        .modal-btn { padding: 0.75rem 1.5rem; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: var(--transition-smooth); border: 1px solid var(--border-subtle); background: transparent; color: var(--text-secondary); }
+        .modal-btn.primary { background: var(--neon-green); color: #000000; border-color: var(--neon-green); }
+        .modal-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); }
+        .modal-btn.primary:hover { box-shadow: 0 0 25px var(--neon-green-glow); }
 
-        /* ===== Header ===== */
-        .store-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-
-        .store-header h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #ffffff 0%, var(--neon-green) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.75rem;
-        }
-
-        .store-tagline {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            font-size: 0.7rem;
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-        }
-
-        .store-tagline span {
-            color: var(--neon-green);
-            font-size: 0.5rem;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: -0.5rem;
-            right: -0.5rem;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 1px solid var(--border-subtle);
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-smooth);
-        }
-
-        .close-btn:hover {
-            border-color: var(--neon-green);
-            color: var(--neon-green);
-            box-shadow: 0 0 15px var(--neon-green-glow);
-            transform: rotate(90deg);
-        }
-
-        /* ===== App Cards Grid ===== */
-        .app-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .app-card {
-            background: rgba(10, 10, 10, 0.6);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 2rem 1.75rem;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .app-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--neon-green-glow);
-        }
-
-        .app-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Card Icon */
-        .app-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05));
-            border: 1px solid rgba(0, 255, 136, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.25rem;
-            font-size: 1.4rem;
-            color: var(--neon-green);
-        }
-
-        .app-card h2 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-        }
-
-        .app-description {
-            font-size: 0.8rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            flex-grow: 1;
-            margin-bottom: 1.25rem;
-        }
-
-        /* Badge */
-        .badge-free {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 6px;
-            padding: 0.3rem 0.75rem;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--neon-green);
-            width: fit-content;
-            margin-bottom: 1rem;
-        }
-
-        /* Specs */
-        .app-specs {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            margin-bottom: 1.25rem;
-        }
-
-        .app-specs span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .app-specs .dot {
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background: var(--text-muted);
-        }
-
-        /* Download Button */
-        .download-btn {
-            display: block;
-            width: 100%;
-            padding: 0.9rem;
-            background: transparent;
-            border: 1.5px solid var(--neon-green);
-            border-radius: 10px;
-            color: var(--neon-green);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .download-btn:hover::before {
-            left: 100%;
-        }
-
-        .download-btn:hover {
-            background: var(--neon-green);
-            color: #000000;
-            box-shadow: 0 0 30px var(--neon-green-glow), 0 0 60px rgba(0, 255, 136, 0.15);
-        }
-
-        /* ===== Footer ===== */
-        .store-footer {
-            text-align: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.6rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .store-footer span {
-            color: var(--neon-green);
-            font-size: 0.4rem;
-        }
-
-        /* ===== Modal (Payment / Details) ===== */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-smooth);
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-hover);
-            border-radius: 20px;
-            padding: 2.5rem;
-            max-width: 440px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 0 60px var(--neon-green-glow);
-            transform: scale(0.9);
-            transition: var(--transition-smooth);
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-content h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--neon-green);
-            margin-bottom: 0.75rem;
-        }
-
-        .modal-content p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 0.75rem;
-            justify-content: center;
-        }
-
-        .modal-btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            border: 1px solid var(--border-subtle);
-            background: transparent;
-            color: var(--text-secondary);
-        }
-
-        .modal-btn.primary {
-            background: var(--neon-green);
-            color: #000000;
-            border-color: var(--neon-green);
-        }
-
-        .modal-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-btn.primary:hover {
-            box-shadow: 0 0 25px var(--neon-green-glow);
-        }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 640px) {
-            body {
-                padding: 1rem;
-            }
-
-            .store-container {
-                padding: 2rem 1.25rem 1.5rem;
-                border-radius: 18px;
-            }
-
-            .store-header h1 {
-                font-size: 1.3rem;
-                letter-spacing: 0.1em;
-            }
-
-            .store-tagline {
-                font-size: 0.55rem;
-                gap: 0.4rem;
-            }
-
-            .app-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .app-card {
-                padding: 1.5rem 1.25rem;
-            }
-
-            .app-card h2 {
-                font-size: 0.95rem;
-            }
-
-            .store-footer {
-                font-size: 0.5rem;
-                gap: 0.3rem;
-            }
-
-            .modal-content {
-                padding: 1.75rem;
-            }
-        }
-
-        /* ===== Animations ===== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .store-container {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .app-card:nth-child(1) {
-            animation: fadeInUp 0.6s 0.1s ease forwards;
-            opacity: 0;
-        }
-
-        .app-card:nth-child(2) {
-            animation: fadeInUp 0.6s 0.2s ease forwards;
-            opacity: 0;
+        @media (max-width: 768px) {
+            .app-grid { grid-template-columns: 1fr; }
+            .dashboard-header { flex-direction: column; gap: 1rem; }
+            .nav-links { width: 100%; justify-content: center; }
+            .login-container, .store-container { padding: 2rem 1.5rem; }
+            .store-header h1 { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== MAIN STORE CONTAINER ===== -->
-    <div class="store-container" id="storeContainer">
+    <!-- ===== LOGIN VIEW ===== -->
+    <div class="login-container" id="loginView">
+        <h1>IMACHUI LOGIN</h1>
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" id="username" placeholder="Enter your username" />
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Enter your password" />
+        </div>
+        <div class="error-msg" id="loginError">Invalid credentials. Try again.</div>
+        <button class="login-btn" id="loginBtn">Access Dashboard</button>
+        <p style="margin-top: 1.5rem; font-size: 0.7rem; color: var(--text-muted);">Demo: admin / 1234</p>
+    </div>
 
-        <!-- Header -->
-        <header class="store-header">
-            <h1>IMACHUI APP STORE</h1>
-            <div class="store-tagline">
-                <span>♦</span> FREE DOWNLOADS
-                <span>♦</span> LIFETIME ACCESS
-                <span>♦</span> PREMIUM QUALITY
-                <span>♦</span>
+    <!-- ===== DASHBOARD & STORE VIEW ===== -->
+    <div class="dashboard-wrapper hidden" id="mainApp">
+        
+        <!-- Dashboard Header -->
+        <header class="dashboard-header">
+            <h1>IMACHUI SYSTEM</h1>
+            <div class="nav-links">
+                <button id="navDashboard" class="active">Dashboard</button>
+                <button id="navStore">App Store</button>
             </div>
-            <button class="close-btn" id="closeStore" aria-label="Close Store">&times;</button>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
         </header>
 
-        <!-- App Cards Grid -->
-        <div class="app-grid">
-
-            <!-- Card 1: IMACHUI NEXUS (Windows) -->
-            <div class="app-card">
-                <div class="app-icon">🖥️</div>
-                <h2>IMACHUI NEXUS</h2>
-                <p class="app-description">
-                    Remote access tool for Windows PC. Control your computer from your phone,
-                    transfer files, and manage your system remotely. Advanced remote control
-                    features with a secure encrypted connection.
-                </p>
-                <div class="badge-free">⚡ 100% FREE</div>
-                <div class="app-specs">
-                    <span>📦 v1.0</span>
-                    <span class="dot"></span>
-                    <span>💾 25.7 MB</span>
-                    <span class="dot"></span>
-                    <span>🪟 Windows</span>
-                </div>
-                <button class="download-btn" data-app="nexus" data-platform="windows">
-                    ⬇ DOWNLOAD FOR WINDOWS
-                </button>
+        <!-- Dashboard Content -->
+        <div id="dashboardView" class="dashboard-content">
+            <div class="widget">
+                <h2>Welcome Back</h2>
+                <p>You are now logged in to the IMACHUI system. Use the navigation above to access the App Store and download premium tools.</p>
             </div>
-
-            <!-- Card 2: IMACHUI APPSTORE (Android) -->
-            <div class="app-card">
-                <div class="app-icon">📱</div>
-                <h2>IMACHUI APPSTORE</h2>
-                <p class="app-description">
-                    All-in-one app store for Android. A carefully curated catalog of
-                    premium apps and tools. Discover high-standard applications
-                    tailored for your device.
-                </p>
-                <div class="badge-free">⚡ 100% FREE</div>
-                <div class="app-specs">
-                    <span>📦 v1.0</span>
-                    <span class="dot"></span>
-                    <span>💾 24 MB</span>
-                    <span class="dot"></span>
-                    <span>🤖 Android</span>
-                </div>
-                <button class="download-btn" data-app="appstore" data-platform="android">
-                    ⬇ DOWNLOAD FOR ANDROID
-                </button>
+            <div class="widget">
+                <h2>System Status</h2>
+                <p>All systems operational. Your connection is secure and encrypted. No active threats detected.</p>
             </div>
-
+            <div class="widget">
+                <h2>Quick Access</h2>
+                <p>Click on the "App Store" tab above to browse and download our curated selection of premium applications.</p>
+            </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="store-footer">
-            <span>♦</span> ALL APPS ARE 100% FREE
-            <span>♦</span> SECURE DOWNLOADS VIA GITHUB
-            <span>♦</span> NO ADS
-            <span>♦</span> NO FEES
-            <span>♦</span>
-        </footer>
+        <!-- Store View (Hidden by default) -->
+        <div id="storeView" class="hidden">
+            <div class="store-container">
+                <header class="store-header">
+                    <h1>IMACHUI APP STORE</h1>
+                    <div class="store-tagline">
+                        <span>♦</span> FREE DOWNLOADS <span>♦</span> LIFETIME ACCESS <span>♦</span> PREMIUM QUALITY <span>♦</span>
+                    </div>
+                </header>
+
+                <div class="app-grid">
+                    <!-- Card 1: IMACHUI NEXUS (PC to PC) -->
+                    <div class="app-card">
+                        <div class="app-icon">🖥️</div>
+                        <h2>IMACHUI NEXUS</h2>
+                        <p class="app-description">
+                            Remote access tool for Windows PC. Control your computer from another PC,
+                            transfer files, and manage your system remotely. Advanced remote control
+                            features with a secure encrypted connection. Designed for seamless PC-to-PC connectivity.
+                        </p>
+                        <div class="badge-free">⚡ 100% FREE</div>
+                        <div class="app-specs">
+                            <span>📦 v1.0</span><span class="dot"></span>
+                            <span>💾 25.7 MB</span><span class="dot"></span>
+                            <span>🪟 Windows</span>
+                        </div>
+                        <button class="download-btn" data-app="nexus" data-platform="windows">
+                            ⬇ DOWNLOAD FOR WINDOWS
+                        </button>
+                    </div>
+
+                    <!-- Card 2: IMACHUI APPSTORE (Android) -->
+                    <div class="app-card">
+                        <div class="app-icon">📱</div>
+                        <h2>IMACHUI APPSTORE</h2>
+                        <p class="app-description">
+                            All-in-one app store for Android. A carefully curated catalog of
+                            premium apps and tools. Discover high-standard applications
+                            tailored for your device.
+                        </p>
+                        <div class="badge-free">⚡ 100% FREE</div>
+                        <div class="app-specs">
+                            <span>📦 v1.0</span><span class="dot"></span>
+                            <span>💾 24 MB</span><span class="dot"></span>
+                            <span>🤖 Android</span>
+                        </div>
+                        <button class="download-btn" data-app="appstore" data-platform="android">
+                            ⬇ DOWNLOAD FOR ANDROID
+                        </button>
+                    </div>
+                </div>
+
+                <footer class="store-footer">
+                    <span>♦</span> ALL APPS ARE 100% FREE <span>♦</span> SECURE DOWNLOADS VIA GITHUB <span>♦</span> NO ADS <span>♦</span> NO FEES <span>♦</span>
+                </footer>
+            </div>
+        </div>
 
     </div>
 
-    <!-- ===== PAYMENT / DETAILS MODAL ===== -->
+    <!-- ===== MODAL ===== -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <h3 id="modalTitle">App Details</h3>
-            <p id="modalMessage">
-                You are about to download this application. Please confirm your
-                selection to proceed.
-            </p>
+            <p id="modalMessage">You are about to download this application. Please confirm your selection to proceed.</p>
             <div class="modal-actions">
                 <button class="modal-btn" id="modalCancel">Cancel</button>
                 <button class="modal-btn primary" id="modalConfirm">Proceed</button>
@@ -578,116 +286,141 @@
         (function () {
             'use strict';
 
-            // DOM References
-            const closeStoreBtn = document.getElementById('closeStore');
-            const storeContainer = document.getElementById('storeContainer');
+            // ===== DOM Elements =====
+            const loginView = document.getElementById('loginView');
+            const mainApp = document.getElementById('mainApp');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginError = document.getElementById('loginError');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const navDashboard = document.getElementById('navDashboard');
+            const navStore = document.getElementById('navStore');
+            const dashboardView = document.getElementById('dashboardView');
+            const storeView = document.getElementById('storeView');
+            
             const modalOverlay = document.getElementById('modalOverlay');
             const modalTitle = document.getElementById('modalTitle');
             const modalMessage = document.getElementById('modalMessage');
             const modalCancel = document.getElementById('modalCancel');
             const modalConfirm = document.getElementById('modalConfirm');
 
-            // App Data (URLs to actual download files or payment gateways)
+            // ===== AUTHENTICATION LOGIC =====
+            const VALID_USERNAME = 'admin';
+            const VALID_PASSWORD = '1234';
+
+            // Check if user is already logged in (LocalStorage)
+            if (localStorage.getItem('imachui_logged_in') === 'true') {
+                showDashboard();
+            }
+
+            loginBtn.addEventListener('click', function () {
+                const user = document.getElementById('username').value.trim();
+                const pass = document.getElementById('password').value.trim();
+
+                if (user === VALID_USERNAME && pass === VALID_PASSWORD) {
+                    localStorage.setItem('imachui_logged_in', 'true');
+                    showDashboard();
+                } else {
+                    loginError.style.display = 'block';
+                    setTimeout(() => { loginError.style.display = 'none'; }, 3000);
+                }
+            });
+
+            // Allow Enter key to submit
+            document.getElementById('password').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') loginBtn.click();
+            });
+
+            function showDashboard() {
+                loginView.classList.add('hidden');
+                mainApp.classList.remove('hidden');
+                // Default to Dashboard tab
+                navDashboard.click();
+            }
+
+            logoutBtn.addEventListener('click', function () {
+                localStorage.removeItem('imachui_logged_in');
+                loginView.classList.remove('hidden');
+                mainApp.classList.add('hidden');
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            });
+
+            // ===== NAVIGATION LOGIC =====
+            navDashboard.addEventListener('click', function () {
+                navDashboard.classList.add('active');
+                navStore.classList.remove('active');
+                dashboardView.classList.remove('hidden');
+                storeView.classList.add('hidden');
+            });
+
+            navStore.addEventListener('click', function () {
+                navStore.classList.add('active');
+                navDashboard.classList.remove('active');
+                storeView.classList.remove('hidden');
+                dashboardView.classList.add('hidden');
+            });
+
+            // ===== STORE & MODAL LOGIC =====
             const APP_DATA = {
                 nexus: {
                     name: 'IMACHUI NEXUS',
                     platform: 'Windows',
-                    url: 'https://github.com/imachui-nullsec/imachui-nullsecor/releases/download/v1.0/IMACHUI_NEXUS_Setup.exe',
-                    paymentUrl: '' // Leave empty for direct download, or add Stripe/PayPal link
+                    url: 'https://github.com/imachui-nullsecor/imachui-nullsecor/releases/download/v1.0/IMACHUI_NEXUS_Setup.exe',
+                    paymentUrl: '' // Dito mo ilalagay ang Stripe/PayPal link mo. Kung empty, direct download.
                 },
                 appstore: {
                     name: 'IMACHUI APPSTORE',
                     platform: 'Android',
-                    url: 'https://github.com/imachui-nullsec/imachui-nullsecor/releases/download/v1.0/IMACHUI_APPSTORE.apk',
-                    paymentUrl: '' // Leave empty for direct download, or add Stripe/PayPal link
+                    url: 'https://github.com/imachui-nullsecor/imachui-nullsecor/releases/download/v1.0/IMACHUI_APPSTORE.apk',
+                    paymentUrl: '' // Dito mo ilalagay ang Stripe/PayPal link mo.
                 }
             };
 
-            // Track current selected app
             let currentApp = null;
 
-            // ===== Open Modal =====
-            function openModal(appKey) {
-                const app = APP_DATA[appKey];
-                if (!app) return;
+            document.querySelectorAll('.download-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const appKey = this.getAttribute('data-app');
+                    const app = APP_DATA[appKey];
+                    if (!app) return;
 
-                currentApp = app;
+                    currentApp = app;
+                    modalTitle.textContent = app.name + ' — ' + app.platform;
 
-                modalTitle.textContent = app.name + ' — ' + app.platform;
+                    if (app.paymentUrl) {
+                        modalMessage.innerHTML = 'This application requires a one-time license activation.<br>Click <strong>Proceed</strong> to complete your secure payment.';
+                    } else {
+                        modalMessage.innerHTML = 'You are about to download <strong>' + app.name + '</strong> for ' + app.platform + '.<br>Click <strong>Proceed</strong> to start your download.';
+                    }
+                    modalOverlay.classList.add('active');
+                });
+            });
 
-                // If a payment URL is set, show payment message; otherwise show download message
-                if (app.paymentUrl) {
-                    modalMessage.innerHTML =
-                        'This application requires a one-time license activation.<br>' +
-                        'Click <strong>Proceed</strong> to complete your secure payment.';
-                } else {
-                    modalMessage.innerHTML =
-                        'You are about to download <strong>' + app.name + '</strong> for ' + app.platform + '.<br>' +
-                        'Click <strong>Proceed</strong> to start your download.';
-                }
-
-                modalOverlay.classList.add('active');
-            }
-
-            // ===== Close Modal =====
             function closeModal() {
                 modalOverlay.classList.remove('active');
                 currentApp = null;
             }
 
-            // ===== Handle Proceed =====
-            function handleProceed() {
-                if (!currentApp) return;
+            modalCancel.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', function (e) {
+                if (e.target === modalOverlay) closeModal();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModal();
+            });
 
+            modalConfirm.addEventListener('click', function () {
+                if (!currentApp) return;
                 if (currentApp.paymentUrl) {
-                    // Redirect to payment gateway
                     window.open(currentApp.paymentUrl, '_blank');
                 } else {
-                    // Direct download
                     window.open(currentApp.url, '_blank');
                 }
-
                 closeModal();
-            }
-
-            // ===== Event Listeners =====
-            document.querySelectorAll('.download-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var appKey = this.getAttribute('data-app');
-                    openModal(appKey);
-                });
             });
 
-            modalCancel.addEventListener('click', closeModal);
-            modalConfirm.addEventListener('click', handleProceed);
-
-            // Close modal on overlay click
-            modalOverlay.addEventListener('click', function (e) {
-                if (e.target === modalOverlay) {
-                    closeModal();
-                }
-            });
-
-            // Close modal on Escape key
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-                    closeModal();
-                }
-            });
-
-            // Close store (hide container)
-            closeStoreBtn.addEventListener('click', function () {
-                storeContainer.style.opacity = '0';
-                storeContainer.style.transform = 'scale(0.95)';
-                setTimeout(function () {
-                    storeContainer.style.display = 'none';
-                }, 300);
-            });
-
-            // Log initialization
-            console.log('IMACHUI APP STORE initialized successfully.');
+            console.log('IMACHUI System initialized.');
         })();
     </script>
-
 </body>
 </html>

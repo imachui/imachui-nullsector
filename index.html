@@ -613,7 +613,7 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
       <div class="app-card">
         <span class="app-icon">🖥️</span>
         <div class="app-name">IMACHUI NEXUS</div>
-        <div class="app-desc">Remote access tool para sa Windows PC. I-control ang iyong computer mula sa malayo, mag-transfer ng files, at mag-manage ng system remotely. Advanced remote control features na may secure encrypted connection.</div>
+        <div class="app-desc">Remote access tool for Windows PC. Control your computer from another PC, transfer files, and manage your system remotely. Advanced remote control features with a secure encrypted connection. Designed for seamless PC-to-PC connectivity.</div>
         <span class="app-tag">✅ 100% FREE</span>
         <div class="app-version">
           <span>📦 v1.0</span>
@@ -621,9 +621,9 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
           <span>💻 Windows</span>
         </div>
         <div class="app-download-row">
-          <a href="https://github.com/imachui/imachui-nullsector/releases/download/v1.0/IMACHUI.Nexus.remote.Access.msi" class="btn-download-app" download>
+          <button onclick="openAppDetail('nexus')" class="btn-download-app">
             ⬇ DOWNLOAD FOR WINDOWS
-          </a>
+          </button>
         </div>
       </div>
 
@@ -631,7 +631,7 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
       <div class="app-card">
         <span class="app-icon">📱</span>
         <div class="app-name">IMACHUI APPSTORE</div>
-        <div class="app-desc">All-in-one app store para sa Android. May sariling catalog ng premium apps at tools. Mag-download ng libreng applications at tools mula sa aming sariling koleksyon ng mga apps.</div>
+        <div class="app-desc">All-in-one app store for Android. A carefully curated catalog of premium apps and tools. Discover high-standard applications tailored for your device.</div>
         <span class="app-tag">✅ 100% FREE</span>
         <div class="app-version">
           <span>📦 v1.0</span>
@@ -639,35 +639,33 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
           <span>📱 Android</span>
         </div>
         <div class="app-download-row">
-          <a href="https://github.com/imachui/imachui-nullsector/releases/download/v1.0-appstore/Imachui.Appstore.apk" class="btn-download-app" download>
+          <button onclick="openAppDetail('appstore')" class="btn-download-app">
             ⬇ DOWNLOAD FOR ANDROID
-          </a>
+          </button>
         </div>
       </div>
-
-      <!-- KOPYAHIN ITO PARA SA BAGONG APP -->
-      <!-- 
-      <div class="app-card">
-        <span class="app-icon">📦</span>
-        <div class="app-name">APP NAME</div>
-        <div class="app-desc">Description of the app.</div>
-        <span class="app-tag">✅ 100% FREE</span>
-        <div class="app-version">
-          <span>📦 v1.0</span>
-          <span>💾 XX MB</span>
-          <span>💻 Platform</span>
-        </div>
-        <div class="app-download-row">
-          <a href="DOWNLOAD_LINK_HERE" class="btn-download-app" download>
-            ⬇ DOWNLOAD
-          </a>
-        </div>
-      </div>
-      -->
     </div>
 
     <div class="appstore-footer">
       ◆ ALL APPS ARE 100% FREE ◆ SECURE DOWNLOADS VIA GITHUB ◆ NO ADS ◆ NO FEES ◆
+    </div>
+  </div>
+</div>
+
+<!-- APP DETAIL / PAYMENT MODAL (NEW) -->
+<div class="appstore-modal" id="appDetailModal" style="z-index: 10000;">
+  <div class="appstore-container" style="max-width: 500px;">
+    <button class="appstore-close" onclick="closeAppDetail()">✕</button>
+    <div class="appstore-header">
+      <h1 id="detailTitle">APP NAME</h1>
+      <p id="detailPlatform">PLATFORM</p>
+    </div>
+    <div style="padding: 20px 0; text-align: center;">
+      <p id="detailMessage" style="color: #a8c5be; font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px;">Message</p>
+      <div style="display: flex; gap: 15px;">
+        <button onclick="closeAppDetail()" class="btn-download-app" style="border-color: #ff2b4e; color: #ff2b4e; flex: 1;">CANCEL</button>
+        <button onclick="proceedAction()" class="btn-download-app" style="flex: 1;">PROCEED</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1061,8 +1059,65 @@ document.getElementById('appstoreModal').addEventListener('click', (e) => {
   if (e.target.id === 'appstoreModal') closeAppStore();
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeAppStore();
+  if (e.key === 'Escape') { closeAppStore(); closeAppDetail(); }
 });
+
+/* ============= NEW: HIDDEN PAYMENT / APP DETAIL LOGIC ============= */
+const APP_DATA = {
+  nexus: {
+    name: 'IMACHUI NEXUS',
+    platform: 'Windows',
+    directUrl: 'https://github.com/imachui/imachui-nullsector/releases/download/v1.0/IMACHUI.Nexus.remote.Access.msi',
+    paymentUrl: '' // Dito mo ilalagay ang Stripe/PayPal link mo. Kapag may nilagay ka dito, doon siya dadalhin.
+  },
+  appstore: {
+    name: 'IMACHUI APPSTORE',
+    platform: 'Android',
+    directUrl: 'https://github.com/imachui/imachui-nullsector/releases/download/v1.0-appstore/Imachui.Appstore.apk',
+    paymentUrl: '' // Dito mo ilalagay ang Stripe/PayPal link mo.
+  }
+};
+
+let currentDetailApp = null;
+
+function openAppDetail(appKey) {
+  const app = APP_DATA[appKey];
+  if (!app) return;
+  currentDetailApp = app;
+  document.getElementById('detailTitle').textContent = app.name;
+  document.getElementById('detailPlatform').textContent = app.platform;
+  
+  // Hidden Payment Logic: Kapag may paymentUrl, iba yung message
+  if (app.paymentUrl) {
+    document.getElementById('detailMessage').innerHTML = 'This application requires a one-time license activation.<br>Click <strong>Proceed</strong> to complete your secure payment.';
+  } else {
+    document.getElementById('detailMessage').innerHTML = 'You are about to download <strong>' + app.name + '</strong>.<br>Click <strong>Proceed</strong> to start your download.';
+  }
+  
+  document.getElementById('appDetailModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAppDetail() {
+  document.getElementById('appDetailModal').classList.remove('show');
+  document.body.style.overflow = '';
+  currentDetailApp = null;
+}
+
+function proceedAction() {
+  if (!currentDetailApp) return;
+  if (currentDetailApp.paymentUrl) {
+    window.open(currentDetailApp.paymentUrl, '_blank');
+  } else {
+    window.open(currentDetailApp.directUrl, '_blank');
+  }
+  closeAppDetail();
+}
+
+document.getElementById('appDetailModal').addEventListener('click', (e) => {
+  if (e.target.id === 'appDetailModal') closeAppDetail();
+});
+/* ================================================================ */
 
 const ADMIN_PASSWORD='Imachuinerts'; 
 const ADMIN_PALETTE=[

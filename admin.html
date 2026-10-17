@@ -40,10 +40,22 @@
   .btn-logout:hover { background: var(--yellow); color: #000; box-shadow: 0 0 30px var(--yellow); }
   .btn-phcorner { border-color: #ff2b4e; color: #ff2b4e; }
   .btn-phcorner:hover { background: #ff2b4e; color: #000; box-shadow: 0 0 30px #ff2b4e; }
+  
+  /* GEN AI BUTTON FIERY EFFECT */
+  .btn-genai { border-color: #ff9500; color: #ff9500; animation: burn 1.5s linear infinite alternate; }
+  .btn-genai:hover { background: #ff9500; color: #000; box-shadow: 0 0 30px #ff9500; animation: none; transform: scale(1.05); }
+
+  @keyframes burn {
+    from { text-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .4em #ffae34, .2em -.3em .3em #ec760c, -.2em -.4em .4em #cd4606, .1em -.5em .7em #973716, .1em -.7em .7em #451b0e; }
+    45% { text-shadow: .1em -.2em .5em #fefcc9, .15em 0 .4em #feec85, -.1em -.25em .5em #ffae34, .15em -.45em .5em #ec760c, -.1em -.5em .6em #cd4606, 0 -.8em .6em #973716, .2em -1em .8em #451b0e; }
+    70% { text-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .6em #ffae34, .2em -.3em .4em #ec760c, -.2em -.4em .7em #cd4606, .1em -.5em .7em #973716, .1em -.7em .9em #451b0e; }
+    to { text-shadow: -.1em -.2em .6em #fefcc9, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716, -.2em -1em .8em #451b0e; }
+  }
+
   .btn-del { background: transparent; border: 1px solid var(--red); color: var(--red); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-family: 'Share Tech Mono', monospace; transition: all 0.2s; }
   .btn-del:hover { background: var(--red); color: #fff; box-shadow: 0 0 12px var(--red); }
 
-  .controls { text-align: center; margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+  .controls { text-align: center; margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; align-items: center; }
 
   #passwordPrompt { position: fixed; inset: 0; background: #000; z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; }
   #passwordPrompt input { padding: 15px; font-size: 1.2rem; background: #000; border: 2px solid var(--red); color: #fff; text-align: center; letter-spacing: 3px; margin-bottom: 20px; width: 300px; border-radius: 6px; outline: none; }
@@ -105,6 +117,8 @@
 
   <div class="controls">
     <a href="https://phcorner.org/login/" target="_blank" class="btn btn-phcorner">GO TO PHCORNER</a>
+    <!-- IMACHUI GEN AI BUTTON (BAGO) -->
+    <a href="https://imachui.github.io/imachui-gen-ai/" target="_blank" class="btn btn-genai">🔥 GEN AI</a>
     <a href="index.html" class="btn btn-back">← BACK TO SITE</a>
     <button class="btn btn-logout" id="logoutBtn">LOG OUT</button>
   </div>
